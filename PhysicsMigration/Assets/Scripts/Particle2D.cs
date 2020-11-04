@@ -6,6 +6,7 @@ public class Particle2D : MonoBehaviour
 {
 
    public float Mass = 0.0f;
+  
    public Vector3 Velocity = new Vector3 (0.0f, 0.0f, 0.0f);
    public Vector3 Acceleration = new Vector3(0.0f, 0.0f, 0.0f);
    public Vector3 AccumulatedForces = new Vector3(0.0f, 0.0f, 0.0f);
@@ -15,7 +16,7 @@ public class Particle2D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+      float InverseMass = Mathf.Sqrt(Mass * -1.0f);
     }
 
     // Update is called once per frame
@@ -24,18 +25,18 @@ public class Particle2D : MonoBehaviour
       integrator();
     }
 
-   static void integrator()
+   void integrator()
    {
       transform.position += (Velocity * Time.deltaTime);
       Vector3 resultingAcc = Acceleration;
 
-      if(ShouldIgnoreForces == false)
+      if (ShouldIgnoreForces == false)
       {
          resultingAcc = AccumulatedForces * (Mass * -1.0f);
       }
 
       Velocity += resultingAcc * Time.deltaTime;
-      float damping = Mathf.Pow(DampingConstant * Time.deltaTime);
+      float damping = Mathf.Pow(DampingConstant, Time.deltaTime);
       Velocity *= damping;
    }
 }

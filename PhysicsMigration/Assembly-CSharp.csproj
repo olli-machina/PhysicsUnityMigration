@@ -64,10 +64,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\ForceGenerator2D.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GunBehaviors.cs" />
     <Compile Include="Assets\Scripts\Particle2D.cs" />
     <Compile Include="Assets\Scripts\Particle2DContact.cs" />
     <Compile Include="Assets\Scripts\Particle2DLink.cs" />
+    <Compile Include="Assets\Scripts\TargetBehavior.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>

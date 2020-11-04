@@ -58,7 +58,7 @@ public class Particle2DContact : MonoBehaviour
                 newSepVel = 0.0f;
         }
         float dataVel = newSepVel - sepVelocity;
-        float totalInverseMass = 
+        //float totalInverseMass = 
 
     }
 
