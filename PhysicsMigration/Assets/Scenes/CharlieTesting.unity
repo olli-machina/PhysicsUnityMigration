@@ -441,8 +441,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1162543238}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.49, y: -29.8, z: 0}
-  m_LocalScale: {x: 217.96164, y: 60.878036, z: 22.012}
+  m_LocalPosition: {x: -0.3297, y: -29.8535, z: 0}
+  m_LocalScale: {x: 216.74487, y: 60.771122, z: 22.012}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -457,6 +457,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1291534591}
   - component: {fileID: 1291534590}
+  - component: {fileID: 1291534592}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -528,6 +529,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 30.163002}
+--- !u!114 &1291534592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291534589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b19517c8fd194b479b1d827cd09998f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateSpeed: 100
 --- !u!1 &1477191472
 GameObject:
   m_ObjectHideFlags: 0
