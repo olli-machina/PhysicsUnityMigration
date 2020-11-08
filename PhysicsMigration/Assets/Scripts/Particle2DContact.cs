@@ -71,12 +71,12 @@ public class Particle2DContact : MonoBehaviour
 
         Vector3 newVelocity = (obj1Particle.Velocity + impulsePerIMass) * obj1Particle.inverseMass;
 
-        obj1Particle.Velocity = newVelocity; //does this work?
+        obj1Particle.setVelocity(newVelocity);
 
         if (obj2)
         {
-            Vector3 newVelocity2 = (obj2.GetComponent<Particle2D>().Velocity + impulsePerIMass) * -obj2.GetComponent<Particle2D>().inverseMass;
-            obj2.GetComponent<Particle2D>().Velocity = newVelocity2; //does this work?
+            Vector3 newVelocity2 = (obj2Particle.Velocity + impulsePerIMass) * -obj2Particle.inverseMass;
+            obj2Particle.setVelocity(newVelocity2);
         }
     }
 
@@ -84,17 +84,17 @@ public class Particle2DContact : MonoBehaviour
     {
         if (mPenetration <= 0.0f)
             return;
-        float totalInverseMass = obj1.GetComponent<Particle2D>().inverseMass;
+        float totalInverseMass = obj1Particle.inverseMass;
         if (obj2)
-            totalInverseMass += obj2.GetComponent<Particle2D>().inverseMass;
+            totalInverseMass += obj2Particle.inverseMass;
         if (totalInverseMass <= 0)
             return;
 
         Vector3 moverPerIMass = mContactNormal * (mPenetration / totalInverseMass);
 
-        mMove1 = moverPerIMass * obj1.GetComponent<Particle2D>().inverseMass;
+        mMove1 = moverPerIMass * obj1Particle.inverseMass;
         if (obj2)
-            mMove2 = moverPerIMass * -obj2.GetComponent<Particle2D>().inverseMass;
+            mMove2 = moverPerIMass * -obj2Particle.inverseMass;
         else
             mMove2 *= 0;
 
@@ -115,10 +115,10 @@ public class Particle2DContact : MonoBehaviour
 
     public float separatingVelocity()
     {
-        Vector3 relativeVel = obj1.GetComponent<Particle2D>().Velocity;
+        Vector3 relativeVel = obj1Particle.Velocity;
         if (obj2)
         {
-            relativeVel -= obj2.GetComponent<Particle2D>().Acceleration;
+            relativeVel -= obj2Particle.Acceleration;
         }
         return dotProduct(relativeVel, transform.forward);
     }
