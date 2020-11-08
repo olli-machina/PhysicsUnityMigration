@@ -12,6 +12,7 @@ public class Particle2D : MonoBehaviour
    public Vector3 AccumulatedForces = new Vector3(0.0f, 0.0f, 0.0f);
    public float DampingConstant = 0.0f;//MUST BE NORMALIZED
    public bool ShouldIgnoreForces = true;
+    public float inverseMass;
 
     // Start is called before the first frame update
     void Start()

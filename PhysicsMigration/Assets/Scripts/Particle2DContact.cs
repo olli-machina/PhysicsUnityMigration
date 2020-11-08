@@ -5,76 +5,105 @@ using UnityEngine;
 public class Particle2DContact : MonoBehaviour
 {
     GameObject obj1, obj2;
+    public Particle2D particle2D;
 
     float mRestitutionCoefficient = 0.0f, mPenetration = 0.0f;
     Vector3 mContactNormal = new Vector3(0.0f, 0.0f, 0.0f);
     Vector3 mMove1 = new Vector3(0.0f, 0.0f, 0.0f);
     Vector3 mMove2 = new Vector3(0.0f, 0.0f, 0.0f);
-    Vector3 previousPos1, previousPos2, velocity1, velocity2,
-        acc1, acc2;
 
     // Start is called before the first frame update
     void Start()
     {
-        previousPos1 = new Vector3(0.0f, 0.0f, 0.0f);
-        previousPos2 = new Vector3(0.0f, 0.0f, 0.0f);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        updateForces();
-    }
 
-    void updateForces()
-    {
-        velocity1 = (obj1.transform.position - previousPos1) / Time.deltaTime;
-        velocity2 = (obj2.transform.position - previousPos2) / Time.deltaTime;
-
-        previousPos1 = obj1.transform.position;
-        previousPos2 = obj2.transform.position;
-
-        acc1 = velocity1 / Time.deltaTime;
-        acc2 = velocity2 / Time.deltaTime;
     }
 
     void Resolve(double dt) //?
+    {
+        ResolveVelocity(dt);
+        ResolveInterpenetration(dt);
+    }
+
+    float CalculateSeperatingVelocity() //const?
+    {
+        Vector3 relativeVel = obj1.GetComponent<Particle2D>().Velocity;
+        if (obj2)
+            relativeVel -= obj2.GetComponent<Particle2D>().Velocity;
+
+        return dotProduct(relativeVel, mContactNormal);
+    }
+
+    void ResolveVelocity(double dt)
     {
         float sepVelocity = separatingVelocity();
         if (sepVelocity > 0.0f)
             return;
         float newSepVel = -sepVelocity * mRestitutionCoefficient; //need to set the R Coeff somewhere
 
-        Vector3 velFromAcc = acc1;
+        Vector3 velFromAcc = obj1.GetComponent<Particle2D>().Acceleration;
 
         if (obj2)
-            velFromAcc -= acc2;
-        float accCausedSepVelocity = dotProduct(velFromAcc, transform.forward)* Time.deltaTime; //can this be time.deltatime?
+            velFromAcc -= obj2.GetComponent<Particle2D>().Acceleration; ;
+        float accCausedSepVelocity = dotProduct(velFromAcc, transform.forward) * Time.deltaTime; //can this be time.deltatime?
 
-        if(accCausedSepVelocity < 0.0f)
+        if (accCausedSepVelocity < 0.0f)
         {
             newSepVel += mRestitutionCoefficient * accCausedSepVelocity;
             if (newSepVel < 0.0f)
                 newSepVel = 0.0f;
         }
         float dataVel = newSepVel - sepVelocity;
-        //float totalInverseMass = 
+        float totalInverseMass = obj1.GetComponent<Particle2D>().inverseMass;
+        if (obj2)
+            totalInverseMass += obj2.GetComponent<Particle2D>().inverseMass;
+        if (totalInverseMass <= 0)
+            return;
 
-    }
+        float impulse = dataVel / totalInverseMass;
+        Vector3 impulsePerIMass = mContactNormal * impulse;
 
-    float CalculateSeperatingVelocity() //const?
-    {
-        return 5;
-    }
+        Vector3 newVelocity = (obj1.GetComponent<Particle2D>().Velocity + impulsePerIMass) * obj1.GetComponent<Particle2D>().inverseMass;
+        obj1.GetComponent<Particle2D>().Velocity = newVelocity; //does this work?
 
-    void ResloveVelocity(double dt)
-    {
-
+        if (obj2)
+        {
+            Vector3 newVelocity2 = (obj2.GetComponent<Particle2D>().Velocity + impulsePerIMass) * -obj2.GetComponent<Particle2D>().inverseMass;
+            obj2.GetComponent<Particle2D>().Velocity = newVelocity2; //does this work?
+        }
     }
 
     void ResolveInterpenetration(double dt)
     {
+        if (mPenetration <= 0.0f)
+            return;
+        float totalInverseMass = obj1.GetComponent<Particle2D>().inverseMass;
+        if (obj2)
+            totalInverseMass += obj2.GetComponent<Particle2D>().inverseMass;
+        if (totalInverseMass <= 0)
+            return;
 
+        Vector3 moverPerIMass = mContactNormal * (mPenetration / totalInverseMass);
+
+        mMove1 = moverPerIMass * obj1.GetComponent<Particle2D>().inverseMass;
+        if (obj2)
+            mMove2 = moverPerIMass * -obj2.GetComponent<Particle2D>().inverseMass;
+        else
+            mMove2 *= 0;
+
+        Vector3 newPosition = obj1.transform.position + mMove1;
+        obj1.transform.position = newPosition;
+
+        if(obj2)
+        {
+            Vector3 newPosition2 = obj2.transform.position + mMove2;
+            obj2.transform.position = newPosition2;
+        }
     }
 
     public float dotProduct(Vector3 vec1, Vector3 vec2)
@@ -84,10 +113,10 @@ public class Particle2DContact : MonoBehaviour
 
     public float separatingVelocity()
     {
-        Vector3 relativeVel = velocity1;
+        Vector3 relativeVel = obj1.GetComponent<Particle2D>().Velocity;
         if (obj2)
         {
-            relativeVel -= velocity2;
+            relativeVel -= obj2.GetComponent<Particle2D>().Acceleration;
         }
         return dotProduct(relativeVel, transform.forward);
     }
