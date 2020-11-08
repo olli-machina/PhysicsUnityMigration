@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Particle2DContact : MonoBehaviour
 {
-    GameObject obj1, obj2;
+    public GameObject obj1, obj2;
     Particle2D obj1Particle, obj2Particle;
 
-    float mRestitutionCoefficient = 0.0f, mPenetration = 0.0f;
-    Vector3 mContactNormal = new Vector3(0.0f, 0.0f, 0.0f);
+    public float mRestitutionCoefficient = 0.0f, mPenetration = 0.0f;
+    public Vector3 mContactNormal = new Vector3(0.0f, 0.0f, 0.0f);
     Vector3 mMove1 = new Vector3(0.0f, 0.0f, 0.0f);
     Vector3 mMove2 = new Vector3(0.0f, 0.0f, 0.0f);
 
@@ -23,6 +23,16 @@ public class Particle2DContact : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public Particle2DContact(GameObject newObj2, float restitution, Vector3 normal, float penetration, Vector3 move1, Vector3 move2)
+    {
+        obj2 = newObj2;
+        mRestitutionCoefficient = restitution;
+        mContactNormal = normal;
+        mPenetration = penetration;
+        mMove1 = move1;
+        mMove2 = move2;
     }
 
     void Resolve(double dt) //?
