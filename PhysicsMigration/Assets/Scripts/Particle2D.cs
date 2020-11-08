@@ -23,7 +23,48 @@ public class Particle2D : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      integrator();
+      //integrator();
+    }
+
+    void setMass(float newMass)
+    {
+      Mass = newMass;
+    }
+    float getMass()
+    {
+      return Mass;
+    }
+    void setVelocity(Vector3 newVelocity)
+    {
+      Velocity = newVelocity;
+    }
+    Vector3 getVelocity()
+    {
+      return Velocity;
+    }
+    void setAcceleration(Vector3 newAcceleration)
+    {
+      Acceleration = newAcceleration;
+    }
+    Vector3 getAcceleration()
+    {
+      return Acceleration;
+    }
+    void setAccumulatedForces(Vector3 newAccumulatedForces)
+    {
+      AccumulatedForces = newAccumulatedForces;
+    }
+    Vector3 getAccumulatedForces()
+    {
+      return AccumulatedForces;
+    }
+    void setDampingConstant(float newDampingConstant)
+    {
+      DampingConstant = newDampingConstant;
+    }
+    float getDampingConstant()
+    {
+      return DampingConstant;
     }
 
    void integrator()
