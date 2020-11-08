@@ -26,43 +26,43 @@ public class Particle2D : MonoBehaviour
       //integrator();
     }
 
-    void setMass(float newMass)
+    public void setMass(float newMass)
     {
       Mass = newMass;
     }
-    float getMass()
+    public float getMass()
     {
       return Mass;
     }
-    void setVelocity(Vector3 newVelocity)
+    public void setVelocity(Vector3 newVelocity)
     {
       Velocity = newVelocity;
     }
-    Vector3 getVelocity()
+    public Vector3 getVelocity()
     {
       return Velocity;
     }
-    void setAcceleration(Vector3 newAcceleration)
+    public void setAcceleration(Vector3 newAcceleration)
     {
       Acceleration = newAcceleration;
     }
-    Vector3 getAcceleration()
+    public Vector3 getAcceleration()
     {
       return Acceleration;
     }
-    void setAccumulatedForces(Vector3 newAccumulatedForces)
+    public void setAccumulatedForces(Vector3 newAccumulatedForces)
     {
       AccumulatedForces = newAccumulatedForces;
     }
-    Vector3 getAccumulatedForces()
+    public Vector3 getAccumulatedForces()
     {
       return AccumulatedForces;
     }
-    void setDampingConstant(float newDampingConstant)
+    public void setDampingConstant(float newDampingConstant)
     {
       DampingConstant = newDampingConstant;
     }
-    float getDampingConstant()
+    public float getDampingConstant()
     {
       return DampingConstant;
     }
