@@ -5,22 +5,22 @@ using UnityEngine;
 public static class Integrator
 {
     public static Particle2D particle;
-    public static GameObject 
+    public static GameObject obj;
 
     // Start is called before the first frame update
     static void Start()
     {
-        particle = gameObject.GetComponent<Particle2D>();
+        particle = obj.GetComponent<Particle2D>();
     }
 
     // Update is called once per frame
-    void Update()
+    static void Update()
     {
         
     }
-    void integrator()
+    static void integrator()
     {
-        transform.position += (particle.Velocity * Time.deltaTime);
+        obj.transform.position += (particle.Velocity * Time.deltaTime);
         Vector3 resultingAcc = particle.Acceleration;
 
         if (particle.ShouldIgnoreForces == false)
