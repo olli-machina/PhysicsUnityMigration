@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class ForceGenerator2D : MonoBehaviour
 {
 	Vector3 ZERO_VECTOR3 = new Vector3(0.0f, 0.0f, 0.0f);
 

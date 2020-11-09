@@ -5,6 +5,8 @@ using UnityEngine;
 public class TargetBehavior : MonoBehaviour
 {
     bool inWater = false;
+    ForceGenerator2D
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +16,8 @@ public class TargetBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gameObject.transform.position >= scr)
+        if(gameObject.transform.position.y > )
+       // if(gameObject.transform.position >= scr)
 
        // if(gameObject != pUnit)
        //{
