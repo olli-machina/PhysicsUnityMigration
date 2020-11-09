@@ -19,7 +19,7 @@ public class TargetBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float height = gameObject.GetComponent<BuoyancyForceGenerator>().buoyancyWaterHeight;
+        float height = 50.0f;// gameObject.GetComponent<BuoyancyForceGenerator>().buoyancyWaterHeight;
             //buoyancyWaterHeight;
         if ( height < gameObject.transform.position.y)
         {
