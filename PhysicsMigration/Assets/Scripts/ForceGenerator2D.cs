@@ -37,7 +37,7 @@ public class NewBehaviourScript : MonoBehaviour
 
       Vector3 diff;
 
-      if (pObj1.activeInHierarchy == false || (pObj2.activeInHierarchy == false)//object no longer exists
+      if (pObj1.activeInHierarchy == false || pObj2.activeInHierarchy == false)//object no longer exists
       {
          return;
       }
