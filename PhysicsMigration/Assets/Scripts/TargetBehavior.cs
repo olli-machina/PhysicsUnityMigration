@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TargetBehavior : MonoBehaviour
 {
-    bool inWater = false;
+   // bool inWater = false;
     ForceGenerator2D forceGen;
     BuoyancyForceGenerator buoyancy;
 
@@ -13,15 +13,24 @@ public class TargetBehavior : MonoBehaviour
     void Start()
     {
         forceGen = gameObject.GetComponent<ForceGenerator2D>();
+        buoyancy = gameObject.GetComponent<BuoyancyForceGenerator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if(forceGen.)
-
-        //if(gameObject.transform.position.y > )
-       // if(gameObject.transform.position >= scr)
+        float height = gameObject.GetComponent<BuoyancyForceGenerator>().buoyancyWaterHeight;
+            //buoyancyWaterHeight;
+        if ( height < gameObject.transform.position.y)
+        {
+            Debug.Log("WHY");
+            //make gravity
+        }
+        else
+        {
+            Debug.Log("Hate");
+           // buoyancy.BuoyancyForceGeneratorupdateForce(gameObject, Time.deltaTime);
+        }
 
        // if(gameObject != pUnit)
        //{

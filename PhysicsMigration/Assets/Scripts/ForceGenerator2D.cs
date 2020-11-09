@@ -132,7 +132,7 @@ public class BuoyancyForceGenerator : ForceGenerator2D
 
    }
 
-   void BuoyancyForceGeneratorupdateForce(GameObject pObj1, float time)
+   public void BuoyancyForceGeneratorupdateForce(GameObject pObj1, float time)
    {
       buoyancyMaxDepth = GetComponent<getheightandwidth>().Get_Height(pObj1);
 
