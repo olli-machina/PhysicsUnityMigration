@@ -17,7 +17,7 @@ public class ForceGenerator2D : MonoBehaviour
         
     }
 
-    virtual public void UpdateForce(GameObject obj1, float dt)//&?
+    virtual public void UpdateForce(GameObject obj, float dt)//&?
     {
     }
 }
@@ -26,7 +26,7 @@ public class SpringForceGenerator : ForceGenerator2D
 {
    public float springSpringConstant = 1.0f;
    public float springRestLength = 20.0f;
-   Particle2D particle;
+   public GameObject springSecondPoint;
 
     void Start()
    {
@@ -44,13 +44,13 @@ public class SpringForceGenerator : ForceGenerator2D
 
         Vector3 diff;
 
-        if (gameObject.activeInHierarchy == false || obj.activeInHierarchy == false)//object no longer exists
+        if (gameObject.activeInHierarchy == false || springSecondPoint.activeInHierarchy == false)//object no longer exists
         {
             return;
         }
 
         Vector3 pos = gameObject.transform.position;
-        Vector3 pos2 = obj.transform.position;
+        Vector3 pos2 = springSecondPoint.transform.position;
 
         diff = pos - pos2;
         dist = GetComponent<Particle2DLink>().distanceBetween(pos, pos2);
@@ -67,35 +67,6 @@ public class SpringForceGenerator : ForceGenerator2D
         //PhysicsEngine::addForce(pObj1, diff);
         //PhysicsEngine::addForce(pObj2, Vector2D::getVectorInOppositeDirection(diff));
     }
-   // void SpringupdateForce(GameObject pObj1, GameObject pObj2, float time)
-   //{
-   //   float magnitude, dist;
-
-   //   Vector3 diff;
-
-   //   if (pObj1.activeInHierarchy == false || pObj2.activeInHierarchy == false)//object no longer exists
-   //   {
-   //      return;
-   //   }
-
-   //   Vector3 pos = pObj1.transform.position;
-   //   Vector3 pos2 = pObj2.transform.position;
-
-   //   diff = pos - pos2;
-   //   dist = GetComponent<Particle2DLink>().distanceBetween(pos, pos2);
-
-   //   magnitude = dist - springRestLength;
-   //   if (magnitude < 0.0f)
-   //      magnitude = -magnitude;
-
-   //   magnitude *= springSpringConstant;
-
-   //   diff.Normalize();
-   //   diff *= -magnitude;
-
-   //   //PhysicsEngine::addForce(pObj1, diff);
-   //   //PhysicsEngine::addForce(pObj2, Vector2D::getVectorInOppositeDirection(diff));
-   //}
 }
 
 public class BungeeForceGenerator : ForceGenerator2D
@@ -116,21 +87,21 @@ public class BungeeForceGenerator : ForceGenerator2D
 
    }
 
-   void BungeeupdateForce(GameObject pObj1, float time)
+   override public void UpdateForce(GameObject obj, float dt)
    {
-      bungeeJumpOffPoint = pObj1.transform.position;
+      bungeeJumpOffPoint = gameObject.transform.position;
 
       float magnitude, dist;
 
       Vector3 diff;
 
 
-      if (pObj1.activeInHierarchy == false)//object no longer exists
+      if (gameObject.activeInHierarchy == false)//object no longer exists
       {
          return;
       }
 
-      Vector3 pos = pObj1.transform.position;
+      Vector3 pos = gameObject.transform.position;
 
       diff = pos - bungeeJumpOffPoint;
       dist = GetComponent<Particle2DLink>().distanceBetween(pos, bungeeJumpOffPoint);
@@ -169,15 +140,15 @@ public class BuoyancyForceGenerator : ForceGenerator2D
 
    }
 
-   public void BuoyancyForceGeneratorupdateForce(GameObject pObj1, float time)
+   override public void UpdateForce(GameObject obj2, float dt)
    {
-      buoyancyMaxDepth = GetComponent<getheightandwidth>().Get_Height(pObj1);
+      buoyancyMaxDepth = GetComponent<getheightandwidth>().Get_Height(gameObject);
 
-      if (pObj1.activeInHierarchy == false)//object no longer exists
+      if (gameObject.activeInHierarchy == false)//object no longer exists
       {
          return;
       }
-      Vector3 pos = pObj1.transform.position;
+      Vector3 pos = gameObject.transform.position;
 
       //// Calculate the submersion depth.
       float depth = (pos.y + buoyancyMaxDepth - buoyancyWaterHeight) / (2 * buoyancyMaxDepth);
@@ -200,11 +171,11 @@ public class BuoyancyForceGenerator : ForceGenerator2D
          force.y = (buoyancyLiquidDensity * buoyancyVolume * depth);
       }
 
-      pObj1.GetComponent<Particle2D>().setDampingConstant(1.0f - depth);
+      gameObject.GetComponent<Particle2D>().setDampingConstant(1.0f - depth);
 
-        //// Otherwise we are partly submerged.
-        //PhysicsEngine::addForce(pObj1, force * 0.5);
+      //// Otherwise we are partly submerged.
+      //PhysicsEngine::addForce(pObj1, force * 0.5);
 
-        particle.AccumulatedForces += force;
+      particle.AccumulatedForces += force;
    }
 }

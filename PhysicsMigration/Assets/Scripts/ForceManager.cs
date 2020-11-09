@@ -4,6 +4,7 @@ using System.Collections.Generic;
 static class ForceManager
 {
    static List<ForceGenerator2D> arrayOfGenerators;
+   public static GameObject springForceSecondObject;
 
    // Start is called before the first frame update
    static void Start()
@@ -29,7 +30,7 @@ static class ForceManager
    {
       for (var i = 0; i < arrayOfGenerators.Count; i++)
       {
-         arrayOfGenerators[i].;
+         arrayOfGenerators[i].UpdateForce(arrayOfGenerators[i].gameObject, Time.deltaTime);
       }
    }
 }
