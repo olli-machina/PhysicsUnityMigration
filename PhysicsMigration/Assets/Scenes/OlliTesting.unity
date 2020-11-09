@@ -549,6 +549,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1822846929}
   - component: {fileID: 1822846928}
+  - component: {fileID: 1822846931}
+  - component: {fileID: 1822846930}
   m_Layer: 0
   m_Name: Target
   m_TagString: Untagged
@@ -620,3 +622,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1822846930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822846927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1833bfa29e1d6e4a9e785ba95a673e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Mass: 3
+  Velocity: {x: 0, y: 0, z: 0}
+  Acceleration: {x: 0, y: -10, z: 0}
+  AccumulatedForces: {x: 0, y: 0, z: 0}
+  DampingConstant: 0
+  ShouldIgnoreForces: 1
+  inverseMass: 0
+--- !u!114 &1822846931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822846927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9dd18a9fb7c412f439c86e8beeced461, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mRestitutionCoefficient: 0
+  mPenetration: 0
+  mContactNormal: {x: 0, y: 0, z: 0}

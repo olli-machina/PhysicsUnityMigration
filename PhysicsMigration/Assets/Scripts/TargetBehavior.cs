@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TargetBehavior : MonoBehaviour
 {
+    bool inWater = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +14,8 @@ public class TargetBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(gameObject.transform.position >= scr)
+
        // if(gameObject != pUnit)
        //{
        //   float distSQ = getSquaredDistance(pUnit.transform.position, gameObject.transform.position);

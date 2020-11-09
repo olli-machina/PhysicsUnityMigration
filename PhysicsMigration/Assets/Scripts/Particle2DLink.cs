@@ -49,7 +49,7 @@ public class Particle2DLink : MonoBehaviour
 public class ParticleCable : Particle2DLink
 {
     float maxLength;
-    float restitution;
+    float restitution = 0.5f;
 
 
     override public void CreateContacts(List<Particle2DContact> contacts)

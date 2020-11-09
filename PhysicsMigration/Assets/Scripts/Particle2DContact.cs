@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Particle2DContact : MonoBehaviour
 {
-    public GameObject obj1, obj2;
+    GameObject obj2 = null;
     Particle2D obj1Particle, obj2Particle;
 
     public float mRestitutionCoefficient = 0.0f, mPenetration = 0.0f;
@@ -16,7 +16,8 @@ public class Particle2DContact : MonoBehaviour
     void Start()
     {
         obj1Particle = gameObject.GetComponent<Particle2D>();
-        obj2Particle = obj2.GetComponent<Particle2D>();
+        if(obj2)
+            obj2Particle = obj2.GetComponent<Particle2D>();
     }
 
     // Update is called once per frame
@@ -108,8 +109,8 @@ public class Particle2DContact : MonoBehaviour
         else
             mMove2 *= 0;
 
-        Vector3 newPosition = obj1.transform.position + mMove1;
-        obj1.transform.position = newPosition;
+        Vector3 newPosition = gameObject.transform.position + mMove1;
+        gameObject.transform.position = newPosition;
 
         if(obj2)
         {
