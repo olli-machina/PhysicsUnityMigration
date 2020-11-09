@@ -221,6 +221,7 @@ MonoBehaviour:
   AccumulatedForces: {x: 0, y: 0, z: 0}
   DampingConstant: 0
   ShouldIgnoreForces: 0
+  inverseMass: 0
 --- !u!1 &461372279
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,6 +561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b19517c8fd194b479b1d827cd09998f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab: {fileID: 6012631829946816775, guid: a7bb5121a045c3e4cb328013f5bb2bd5, type: 3}
   rotateSpeed: 100
 --- !u!1 &1477191472
 GameObject:
