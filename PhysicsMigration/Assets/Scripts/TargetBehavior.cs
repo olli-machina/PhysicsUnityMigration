@@ -5,17 +5,21 @@ using UnityEngine;
 public class TargetBehavior : MonoBehaviour
 {
     bool inWater = false;
-    ForceGenerator2D
+    ForceGenerator2D forceGen;
+    BuoyancyForceGenerator buoyancy;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        forceGen = gameObject.GetComponent<ForceGenerator2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //if(forceGen.)
+
         //if(gameObject.transform.position.y > )
        // if(gameObject.transform.position >= scr)
 
