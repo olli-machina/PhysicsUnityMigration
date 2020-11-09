@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GunBehaviors : MonoBehaviour
 {
-
+   public GameObject prefab;
    public float rotateSpeed = 500.0f;
     // Start is called before the first frame update
     void Start()
@@ -24,5 +24,10 @@ public class GunBehaviors : MonoBehaviour
         {
            transform.Rotate(Vector3.back * rotateSpeed * Time.deltaTime);
         }
+   
+         else if (Input.GetKeyDown(KeyCode.Return))
+         {
+            Instantiate(prefab, gameObject.transform.position, Quaternion.identity);
+         }
    }
 }
