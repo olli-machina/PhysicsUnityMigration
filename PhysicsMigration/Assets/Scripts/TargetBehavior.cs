@@ -16,7 +16,7 @@ public class TargetBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(gameObject.transform.position.y > )
+        //if(gameObject.transform.position.y > )
        // if(gameObject.transform.position >= scr)
 
        // if(gameObject != pUnit)

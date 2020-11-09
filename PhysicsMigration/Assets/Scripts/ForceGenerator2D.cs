@@ -4,24 +4,9 @@ using UnityEngine;
 
 public class ForceGenerator2D : MonoBehaviour
 {
-	Vector3 ZERO_VECTOR3 = new Vector3(0.0f, 0.0f, 0.0f);
-
-	public float buoyancyMaxDepth = 0.0f;
-	public float buoyancyVolume = 1.0f;
-	public float buoyancyWaterHeight = 0.0f;
-	public float buoyancyLiquidDensity = 1000.0f;
-
-	public Vector3 bungeeJumpOffPoint;
-	public float bungeeSpringConstant = 1.0f;
-	public float bungeeRestLength = 20.0f;
-
-   public float springSpringConstant = 1.0f;
-   public float springRestLength = 20.0f;
     // Start is called before the first frame update
     void Start()
     {
-		bungeeJumpOffPoint = ZERO_VECTOR3;
-		buoyancyWaterHeight = GetComponent<getheightandwidth>().Get_Height(GameObject.FindGameObjectWithTag("Water"));
 
 	 }
 
@@ -30,6 +15,22 @@ public class ForceGenerator2D : MonoBehaviour
     {
         
     }
+}
+
+public class SpringForceGenerator : ForceGenerator2D
+{
+   public float springSpringConstant = 1.0f;
+   public float springRestLength = 20.0f;
+
+   void Start()
+   {
+      
+   }
+
+   void Update()
+   {
+      
+   }
 
    void SpringupdateForce(GameObject pObj1, GameObject pObj2, float time)
    {
@@ -60,13 +61,33 @@ public class ForceGenerator2D : MonoBehaviour
       //PhysicsEngine::addForce(pObj2, Vector2D::getVectorInOppositeDirection(diff));
 
    }
+}
+
+public class BungeeForceGenerator : ForceGenerator2D
+{
+   Vector3 ZERO_VECTOR3 = new Vector3(0.0f, 0.0f, 0.0f);
+
+   public Vector3 bungeeJumpOffPoint;
+   public float bungeeSpringConstant = 1.0f;
+   public float bungeeRestLength = 20.0f;
+
+   void Start()
+   {
+      bungeeJumpOffPoint = ZERO_VECTOR3;
+   }
+
+   void Update()
+   {
+
+   }
+
    void BungeeupdateForce(GameObject pObj1, float time)
-	{
-	   bungeeJumpOffPoint = pObj1.transform.position;
+   {
+      bungeeJumpOffPoint = pObj1.transform.position;
 
-	   float magnitude, dist;
+      float magnitude, dist;
 
-	   Vector3 diff;
+      Vector3 diff;
 
 
       if (pObj1.activeInHierarchy == false)//object no longer exists
@@ -92,19 +113,37 @@ public class ForceGenerator2D : MonoBehaviour
 
       //PhysicsEngine::addForce(pObj1, diff);
    }
+}
+
+public class BuoyancyForceGenerator : ForceGenerator2D
+{
+   public float buoyancyMaxDepth = 0.0f;
+   public float buoyancyVolume = 1.0f;
+   public float buoyancyWaterHeight = 0.0f;
+   public float buoyancyLiquidDensity = 1000.0f;
+
+   void Start()
+   {
+      buoyancyWaterHeight = GetComponent<getheightandwidth>().Get_Height(GameObject.FindGameObjectWithTag("Water"));
+   }
+
+   void Update()
+   {
+
+   }
 
    void BuoyancyForceGeneratorupdateForce(GameObject pObj1, float time)
-	{
-		buoyancyMaxDepth = GetComponent<getheightandwidth>().Get_Height(pObj1);
+   {
+      buoyancyMaxDepth = GetComponent<getheightandwidth>().Get_Height(pObj1);
 
-		if (pObj1.activeInHierarchy == false)//object no longer exists
-		{
-			return;
-		}
-		Vector3 pos = pObj1.transform.position;
+      if (pObj1.activeInHierarchy == false)//object no longer exists
+      {
+         return;
+      }
+      Vector3 pos = pObj1.transform.position;
 
-		//// Calculate the submersion depth.
-		float depth = (pos.y + buoyancyMaxDepth - buoyancyWaterHeight) / (2 * buoyancyMaxDepth);
+      //// Calculate the submersion depth.
+      float depth = (pos.y + buoyancyMaxDepth - buoyancyWaterHeight) / (2 * buoyancyMaxDepth);
 
       // Check if we’re out of the water.
       if (depth <= 0)
@@ -124,7 +163,7 @@ public class ForceGenerator2D : MonoBehaviour
          force.y = (buoyancyLiquidDensity * buoyancyVolume * depth);
       }
 
-     pObj1.GetComponent<Particle2D>().setDampingConstant(1.0f - depth);
+      pObj1.GetComponent<Particle2D>().setDampingConstant(1.0f - depth);
 
       //// Otherwise we are partly submerged.
       //PhysicsEngine::addForce(pObj1, force * 0.5);
