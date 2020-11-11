@@ -66,19 +66,4 @@ public class Particle2D : MonoBehaviour
     {
       return DampingConstant;
     }
-
-   void integrator()
-   {
-      transform.position += (Velocity * Time.deltaTime);
-      Vector3 resultingAcc = Acceleration;
-
-      if (ShouldIgnoreForces == false)
-      {
-         resultingAcc = AccumulatedForces * (Mass * -1.0f);
-      }
-
-      Velocity += resultingAcc * Time.deltaTime;
-      float damping = Mathf.Pow(DampingConstant, Time.deltaTime);
-      Velocity *= damping;
-   }
 }

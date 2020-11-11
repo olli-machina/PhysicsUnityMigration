@@ -30,18 +30,18 @@ public class Particle2DLink : MonoBehaviour
     public float distanceBetween(Vector3 pos1, Vector3 pos2)
     {
         Vector3 temp = (pos1-pos2);
-        return getLength(); //might be wrong
+        return getLength(temp); //might be wrong
     }
 
-    public float getLengthSquared()
+    public float getLengthSquared(Vector3 temp)
     {
-        float lengthSquared = (gameObject.transform.position.x * obj2.transform.position.x) + (gameObject.transform.position.y + obj2.transform.position.y);
+        float lengthSquared = (temp.x * temp.x) + (temp.y + temp.y);
         return lengthSquared;
     }
     
-    public float getLength()
+    public float getLength(Vector3 temp)
     {
-        float lengthSquared = getLengthSquared();
+        float lengthSquared = getLengthSquared(temp);
         return Mathf.Sqrt(lengthSquared);
     }
 }
@@ -54,7 +54,7 @@ public class ParticleCable : Particle2DLink
 
     override public void CreateContacts(List<Particle2DContact> contacts)
     {
-        float length = getLength();
+        float length = getLength(gameObject.transform.position); //?
         if (length < mMaxLength)
             return;
         Vector3 normal = obj2.transform.position - gameObject.transform.position;
@@ -74,7 +74,7 @@ public class ParticleRod : Particle2DLink
     {
         float penetration = 0.0f;
         float restitution = 0.0f;
-        float length = getLength();
+        float length = getLength(gameObject.transform.position);
         if (length == mLength)
             return;
 

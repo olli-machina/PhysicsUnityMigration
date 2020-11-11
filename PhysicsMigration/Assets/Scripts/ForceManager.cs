@@ -15,7 +15,7 @@ static class ForceManager
     // Update is called once per frame
     static void Update()
     {
-        
+        updateall();
     }
 
    static public void addForceGenerator(ForceGenerator2D forceGeneratorToAdd)
@@ -29,6 +29,7 @@ static class ForceManager
    }
    static public void updateall()
    {
+      Debug.Log("Called");
       for (var i = 0; i < arrayOfGenerators.Count; i++)
       {
          arrayOfGenerators[i].UpdateForce(arrayOfGenerators[i].gameObject, Time.deltaTime);

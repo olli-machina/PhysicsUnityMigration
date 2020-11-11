@@ -14,8 +14,8 @@ public class TargetBehavior : MonoBehaviour
     {
         //forceGen = gameObject.GetComponent<ForceGenerator2D>();
         //buoyancy = gameObject.GetComponents<BuoyancyForceGenerator>();
-        //forceGen = new BuoyancyForceGenerator();
-        forceGen = Instantiate(buoyancy);
+        //forceGen = BuoyancyForceGenerator();
+        //forceGen = Instantiate(buoyancy);
         ForceManager.addForceGenerator(forceGen);
     }
 
