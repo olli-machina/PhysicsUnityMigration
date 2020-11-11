@@ -12,8 +12,11 @@ public class TargetBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        forceGen = gameObject.GetComponent<ForceGenerator2D>();
-        buoyancy = gameObject.GetComponent<BuoyancyForceGenerator>();
+        //forceGen = gameObject.GetComponent<ForceGenerator2D>();
+        //buoyancy = gameObject.GetComponents<BuoyancyForceGenerator>();
+        //forceGen = new BuoyancyForceGenerator();
+        forceGen = Instantiate(buoyancy);
+        ForceManager.addForceGenerator(forceGen);
     }
 
     // Update is called once per frame
@@ -28,6 +31,7 @@ public class TargetBehavior : MonoBehaviour
         }
         else
         {
+            ForceManager.updateall();
             Debug.Log("Hate");
            // buoyancy.BuoyancyForceGeneratorupdateForce(gameObject, Time.deltaTime);
         }

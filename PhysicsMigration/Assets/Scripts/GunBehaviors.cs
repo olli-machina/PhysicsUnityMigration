@@ -44,9 +44,9 @@ public class GunBehaviors : MonoBehaviour
         else if(Input.GetKeyDown(KeyCode.W))
         {
             currentNum++;
-            currentProjectile = weapons[currentNum];
-            if (currentNum > numTypes)
+            if (currentNum >= numTypes)
                 currentNum = 0;
+            currentProjectile = weapons[currentNum];
             Debug.Log(weapons[currentNum]);
         }
    }
