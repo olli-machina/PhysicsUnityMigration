@@ -6,7 +6,7 @@ public class TargetBehavior : MonoBehaviour
 {
    // bool inWater = false;
     ForceGenerator2D forceGen;
-    BuoyancyForceGenerator buoyancy;
+    //BuoyancyForceGenerator buoyancy;
 
 
     // Start is called before the first frame update
@@ -16,7 +16,7 @@ public class TargetBehavior : MonoBehaviour
         //buoyancy = gameObject.GetComponents<BuoyancyForceGenerator>();
         //forceGen = BuoyancyForceGenerator();
         //forceGen = Instantiate(buoyancy);
-        ForceManager.addForceGenerator(forceGen);
+        //ForceManager.addForceGenerator(forceGen);
     }
 
     // Update is called once per frame
@@ -31,7 +31,7 @@ public class TargetBehavior : MonoBehaviour
         }
         else
         {
-            ForceManager.updateall();
+            //ForceManager.updateall();
             Debug.Log("Hate");
            // buoyancy.BuoyancyForceGeneratorupdateForce(gameObject, Time.deltaTime);
         }
@@ -46,5 +46,15 @@ public class TargetBehavior : MonoBehaviour
        //       Destroy(gameObject);
        //   }
        //}
+    }
+
+    public void SetVariables(GameObject target)
+    {
+        Particle2D info = target.GetComponent<Particle2D>();
+        info.speed = 600.0f;
+        info.Acceleration = new Vector3(0.0f, -20.0f, 0.0f);
+        info.Velocity = target.transform.forward * info.speed;
+        info.Velocity.z = 0.0f;
+        info.DampingConstant = 0.99f;
     }
 }

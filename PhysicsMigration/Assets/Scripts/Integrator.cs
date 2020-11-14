@@ -2,34 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Integrator
+public class Integrator : MonoBehaviour
 {
-    public static Particle2D particle;
-    public static GameObject obj;
+    Particle2D particle;
+    //public GameObject obj;
 
     // Start is called before the first frame update
-    static void Start()
+    void Start()
     {
-        particle = obj.GetComponent<Particle2D>();
+        //particle = gameObject.GetComponent<Particle2D>();
     }
 
     // Update is called once per frame
-    static void Update()
+    void Update()
     {
         
     }
-    static void integrator()
+    public void integrator(GameObject obj)
     {
+        particle = obj.GetComponent<Particle2D>();
         obj.transform.position += (particle.Velocity * Time.deltaTime);
+        //Debug.Log(obj.name + obj.transform.position);
         Vector3 resultingAcc = particle.Acceleration;
 
-        if (particle.ShouldIgnoreForces == false)
+        if (!particle.ShouldIgnoreForces)
         {
-            resultingAcc = particle.AccumulatedForces * (particle.Mass * -1.0f);
+            resultingAcc += particle.AccumulatedForces * particle.getInverseMass();
         }
 
-        particle.Velocity += resultingAcc * Time.deltaTime;
-        float damping = Mathf.Pow(particle.DampingConstant, Time.deltaTime);
+        particle.Velocity += (resultingAcc * Time.deltaTime);
+        float damping = Mathf.Pow(particle.getDampingConstant(), Time.deltaTime);
         particle.Velocity *= damping;
+
+        particle.ClearAccumulatedForces();
     }
 }

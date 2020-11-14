@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\BulletBehavior.cs" />
     <Compile Include="Assets\Scripts\ForceGenerator2D.cs" />
     <Compile Include="Assets\Scripts\ForceManager.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />

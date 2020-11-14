@@ -82,13 +82,13 @@ public class Particle2DContact : MonoBehaviour
 
         Vector3 newVelocity = (obj1Particle.Velocity + impulsePerIMass) * obj1Particle.inverseMass;
 
-        obj1Particle.setVelocity(newVelocity);
+        //obj1Particle.setVelocity(newVelocity);
 
-        if (obj2)
-        {
-            Vector3 newVelocity2 = (obj2Particle.Velocity + impulsePerIMass) * -obj2Particle.inverseMass;
-            obj2Particle.setVelocity(newVelocity2);
-        }
+        //if (obj2)
+        //{
+        //    Vector3 newVelocity2 = (obj2Particle.Velocity + impulsePerIMass) * -obj2Particle.inverseMass;
+        //    obj2Particle.setVelocity(newVelocity2);
+        //}
     }
 
     void ResolveInterpenetration(double dt)
