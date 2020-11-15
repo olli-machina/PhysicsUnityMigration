@@ -5,14 +5,15 @@ using UnityEngine;
 public class TargetBehavior : MonoBehaviour
 {
    // bool inWater = false;
-    ForceGenerator2D forceGen;
+    public ForceGenerator2D forceGen;
     //BuoyancyForceGenerator buoyancy;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //forceGen = gameObject.GetComponent<ForceGenerator2D>();
+        forceGen = gameObject.GetComponent<ForceGenerator2D>();
+        Debug.Log("Force: " + forceGen);
         //buoyancy = gameObject.GetComponents<BuoyancyForceGenerator>();
         //forceGen = BuoyancyForceGenerator();
         //forceGen = Instantiate(buoyancy);
@@ -22,30 +23,10 @@ public class TargetBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float height = 50.0f;// gameObject.GetComponent<BuoyancyForceGenerator>().buoyancyWaterHeight;
-            //buoyancyWaterHeight;
-        if ( height < gameObject.transform.position.y)
-        {
-            Debug.Log("WHY");
-            //make gravity
-        }
-        else
-        {
-            //ForceManager.updateall();
-            Debug.Log("Hate");
-           // buoyancy.BuoyancyForceGeneratorupdateForce(gameObject, Time.deltaTime);
-        }
+        if (gameObject.transform.position.y > 70.0 || gameObject.transform.position.y < -70.0
+            || gameObject.transform.position.x < -120.0 || gameObject.transform.position.x > 120.0) //change to screen height
+            Destroy(gameObject);
 
-       // if(gameObject != pUnit)
-       //{
-       //   float distSQ = getSquaredDistance(pUnit.transform.position, gameObject.transform.position);
-       //   if(distSQ <= 1600)
-       //   {
-       //       //add to score
-       //       //spawn new one (in game manager?)
-       //       Destroy(gameObject);
-       //   }
-       //}
     }
 
     public void SetVariables(GameObject target)

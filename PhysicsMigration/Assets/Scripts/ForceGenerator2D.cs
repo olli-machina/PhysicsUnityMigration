@@ -69,7 +69,6 @@ public class PointForceGenerator : ForceGenerator2D
             diff.Normalize();
 
             //particle.AccumulatedForces += (diff * (mMagnitude * proportionAway));
-            Debug.Log("Hatred");
             addForce(obj, (diff * (mMagnitude * proportionAway)) * Time.deltaTime); //will this work right?
         }
     }
@@ -182,6 +181,7 @@ public class BuoyancyForceGenerator : ForceGenerator2D
 
     public void Constructor(float maxDepth, float volume, float waterHeight, float density)
     {
+        Debug.Log("Start");
         mMaxDepth = maxDepth;
         mVolume = volume;
         mWaterHeight = waterHeight;
@@ -191,25 +191,32 @@ public class BuoyancyForceGenerator : ForceGenerator2D
     public override void UpdateForce(GameObject obj)
     {
         //Vector3 diff = mPoint - gameObject.transform.position; //???
-
         float currentDepth = (obj.transform.position.y + mMaxDepth - mWaterHeight) / (2 * mMaxDepth);
+        Debug.Log(mMaxDepth);
         Vector3 force = new Vector3(0.0f, 0.0f, 0.0f);
 
-        if(currentDepth <= 0)
+        if(currentDepth >= (mWaterHeight + mMaxDepth))
         {
+            Debug.Log("Out of Water");
             return;
         }
 
-        if (currentDepth >= 1)
-        {
-            force.y = (-1 * (mDensity * mVolume));
-        }
+        //if (currentDepth <= (mWaterHeight - mMaxDepth))
+        //{
+        //    Debug.Log("In Water");
+        //    force.y = -1*((mDensity * mVolume * currentDepth));
+        //}
 
         else
-            force.y = (mDensity * mVolume * currentDepth);
+        {
+            Debug.Log("Kinda in Water");
+            force.y = -1*(mDensity * mVolume * currentDepth);
+            //obj.GetComponent<Particle2D>().Acceleration = new Vector3(0.0f, 20.0f, 0.0f);
+        }
+       // Debug.Log("Force: " + force);
 
-        addForce(obj, force * Time.deltaTime); //* time?
-
+        addForce(obj, force * 0.5f); //* time?
+        obj.GetComponent<Particle2D>().AccumulatedForces += force;
     }
 
     //public float buoyancyMaxDepth = 0.0f;

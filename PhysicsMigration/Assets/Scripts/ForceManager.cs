@@ -48,16 +48,15 @@ public class ForceManager : MonoBehaviour
 
     public ForceGenerator2D NewBouyancyForceGenerator(GameObject obj, float maxDepth, float volume, float waterHeight, float density)
     {
-        //GameObject newForceGenerator = new GameObject()
         BuoyancyForceGenerator newBouyancyGen = obj.AddComponent<BuoyancyForceGenerator>();
         newBouyancyGen.Constructor(maxDepth, volume, waterHeight, density);
         addForceGenerator(newBouyancyGen);
         return obj.GetComponent<ForceGenerator2D>();
     }
 
-   void addForceGenerator(ForceGenerator2D forceGeneratorToAdd)
+   public void addForceGenerator(ForceGenerator2D forceGeneratorToAdd)
    {
-        Debug.Log(forceGeneratorToAdd);
+        //Debug.Log(forceGeneratorToAdd);
         listOfGenerators.Add(forceGeneratorToAdd);
    }
    public void removeForceGenerator(ForceGenerator2D forceGeneratorToRemove)
@@ -66,7 +65,7 @@ public class ForceManager : MonoBehaviour
    }
    public void updateall()
    {
-        Debug.Log("Called");
+       // Debug.Log("Called");
         Particle2D[] allParticlesActive = (Particle2D[])GameObject.FindObjectsOfType(typeof(Particle2D)); //needs to be typecast
 
         //for (var i = 0; i < arrayOfGenerators.Count; i++)
