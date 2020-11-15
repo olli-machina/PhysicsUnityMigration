@@ -25,17 +25,17 @@ public class TargetBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (gameObject.transform.position.y > 70.0 || gameObject.transform.position.y < -70.0
-            || gameObject.transform.position.x < -120.0 || gameObject.transform.position.x > 120.0) //change to screen height
-        {
-            gameManager.isTarget = false;
-            Destroy(gameObject);
-        }
+        //if (gameObject.transform.position.y > 70.0 || gameObject.transform.position.y < -70.0
+        //    || gameObject.transform.position.x < -120.0 || gameObject.transform.position.x > 120.0) //change to screen height
+        //{
+        //    gameManager.isTarget = false;
+        //    Destroy(gameObject);
+        //}
     }
 
     public void SetVariables(GameObject target)
     {
-        Particle2D info = target.GetComponent<Particle2D>();
+        Particle2D info = target.GetComponent<Particle2D>(); 
         info.speed = 600.0f;
         info.Acceleration = new Vector3(0.0f, -20.0f, 0.0f);
         info.Velocity = target.transform.forward * info.speed;

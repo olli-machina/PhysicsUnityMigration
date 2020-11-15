@@ -27,7 +27,7 @@ public class Integrator : MonoBehaviour
 
         if (!particle.ShouldIgnoreForces)
         {
-            resultingAcc += particle.AccumulatedForces * particle.getInverseMass();
+            resultingAcc += particle.AccumulatedForces * (float)(particle.Mass / 1.0);//particle.getInverseMass();
         }
 
         particle.Velocity += (resultingAcc * Time.deltaTime);

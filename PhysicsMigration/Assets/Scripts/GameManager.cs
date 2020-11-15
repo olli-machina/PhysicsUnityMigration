@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject target, bulletPrefab;
+    public GameObject target, bulletPrefab, waterSprite;
     Transform gun;
     public ForceManager manager;
     public bool isTarget = false;
@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
         // newTarget.transform.position = new Vector3(Random.Range(-120, 120), Random.Range(-70, 70), 0.0f);
         newTarget.transform.position = pos;
         newTarget.GetComponent<TargetBehavior>().SetVariables(newTarget);
-        ForceGenerator2D bouyancyForce = manager.NewBouyancyForceGenerator(newTarget, (newTarget.transform.localScale.y) / 2, 1.0f, 0.0f, 1000.0f);
+        ForceGenerator2D bouyancyForce = manager.NewBouyancyForceGenerator(newTarget, -(waterSprite.transform.localScale.y) / 2, 75.0f, (waterSprite.transform.localScale.y) / 2, 5.0f);
         manager.addForceGenerator(bouyancyForce);
         newTarget.GetComponent<TargetBehavior>().forceGen = bouyancyForce;
         Debug.Log("Acc: " + newTarget.GetComponent<Particle2D>().Acceleration); //This is problem, gravity never goes away.
