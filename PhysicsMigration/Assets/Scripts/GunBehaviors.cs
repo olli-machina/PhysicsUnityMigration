@@ -21,6 +21,7 @@ public class GunBehaviors : MonoBehaviour
     void Start()
     {
         numTypes = weapons.Count;
+        currentProjectile = prefab;
     }
 
     // Update is called once per frame
@@ -28,12 +29,12 @@ public class GunBehaviors : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKey(KeyCode.Alpha1))
         {
-         transform.Rotate(Vector3.forward * rotateSpeed * Time.deltaTime);
+            transform.Rotate(Vector3.forward * rotateSpeed * Time.deltaTime);
         }
 
         else if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKey(KeyCode.Alpha2))
         {
-           transform.Rotate(Vector3.back * rotateSpeed * Time.deltaTime);
+            transform.Rotate(Vector3.back * rotateSpeed * Time.deltaTime);
         }
    
         else if (Input.GetKeyDown(KeyCode.Return))

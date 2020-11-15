@@ -19,15 +19,6 @@ public class BulletBehavior : MonoBehaviour
             Destroy(gameObject);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if(other.tag == "Target")
-        {
-            Destroy(gameObject);
-            //add to score
-        }
-    }
-
     public void SetVariables(GameObject projectile)
     {
         Particle2D info = projectile.GetComponent<Particle2D>();

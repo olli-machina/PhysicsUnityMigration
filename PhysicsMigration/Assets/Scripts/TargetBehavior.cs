@@ -6,6 +6,7 @@ public class TargetBehavior : MonoBehaviour
 {
    // bool inWater = false;
     public ForceGenerator2D forceGen;
+    GameManager gameManager;
     //BuoyancyForceGenerator buoyancy;
 
 
@@ -14,6 +15,7 @@ public class TargetBehavior : MonoBehaviour
     {
         forceGen = gameObject.GetComponent<ForceGenerator2D>();
         Debug.Log("Force: " + forceGen);
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         //buoyancy = gameObject.GetComponents<BuoyancyForceGenerator>();
         //forceGen = BuoyancyForceGenerator();
         //forceGen = Instantiate(buoyancy);
@@ -25,8 +27,10 @@ public class TargetBehavior : MonoBehaviour
     {
         if (gameObject.transform.position.y > 70.0 || gameObject.transform.position.y < -70.0
             || gameObject.transform.position.x < -120.0 || gameObject.transform.position.x > 120.0) //change to screen height
+        {
+            gameManager.isTarget = false;
             Destroy(gameObject);
-
+        }
     }
 
     public void SetVariables(GameObject target)
