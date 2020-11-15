@@ -345,6 +345,10 @@ MonoBehaviour:
   bulletPrefab: {fileID: 6012631829946816775, guid: a7bb5121a045c3e4cb328013f5bb2bd5,
     type: 3}
   waterSprite: {fileID: 1082264308}
+  springPrefab: {fileID: 6012631829946816775, guid: 89beeff9f1e84f24599dd5ad84de5bc1,
+    type: 3}
+  rodPrefab: {fileID: 6012631829946816775, guid: f9ed97a051f3c7447a00c4fcf5ce2a3d,
+    type: 3}
   manager: {fileID: 1094459172}
   isTarget: 0
 --- !u!4 &486325582
@@ -847,12 +851,12 @@ PrefabInstance:
     - target: {fileID: 54832061155210631, guid: a7bb5121a045c3e4cb328013f5bb2bd5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 122
+      value: -67.1
       objectReference: {fileID: 0}
     - target: {fileID: 54832061155210631, guid: a7bb5121a045c3e4cb328013f5bb2bd5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.2
+      value: 13.8
       objectReference: {fileID: 0}
     - target: {fileID: 54832061155210631, guid: a7bb5121a045c3e4cb328013f5bb2bd5,
         type: 3}
