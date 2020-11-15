@@ -37,10 +37,10 @@ public class GunBehaviors : MonoBehaviour
             transform.Rotate(Vector3.back * rotateSpeed * Time.deltaTime);
         }
    
-        else if (Input.GetKeyDown(KeyCode.Return))
-        {
-            Instantiate(prefab, gameObject.transform.position, Quaternion.identity);
-        }
+        //else if (Input.GetKeyDown(KeyCode.Return))
+        //{
+        //    Instantiate(prefab, gameObject.transform.position, Quaternion.identity);
+        //}
 
         else if(Input.GetKeyDown(KeyCode.W))
         {
@@ -48,7 +48,7 @@ public class GunBehaviors : MonoBehaviour
             if (currentNum >= numTypes)
                 currentNum = 0;
             currentProjectile = weapons[currentNum];
-            Debug.Log(weapons[currentNum]);
+            Debug.Log("Weapon: " + weapons[currentNum]);
         }
    }
 }

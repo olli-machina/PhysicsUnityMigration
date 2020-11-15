@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown("space"))
+        if(Input.GetKeyDown(KeyCode.Return))
         {
             GameObject newBullet = Instantiate(bulletPrefab);
             newBullet.GetComponent<BulletBehavior>().SetVariables(newBullet);
