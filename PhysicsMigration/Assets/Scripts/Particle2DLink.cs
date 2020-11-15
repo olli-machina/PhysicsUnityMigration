@@ -61,8 +61,8 @@ public class ParticleCable : Particle2DLink
         normal.Normalize();//?
 
         float penetration = length - mMaxLength;
-        Particle2DContact contact = new Particle2DContact(obj2, restitution, normal, penetration, zeroVector, zeroVector); //is this correct?
-        contacts.Add(contact);
+        //Particle2DContact contact = new Particle2DContact(obj2, restitution, normal, penetration, zeroVector, zeroVector); //is this correct?
+        //contacts.Add(contact);
     }
 }
 
@@ -90,8 +90,8 @@ public class ParticleRod : Particle2DLink
         }
 
         penetration *= 0.001f;
-        Particle2DContact contact = new Particle2DContact(obj2, restitution, normal, penetration, zeroVector, zeroVector); //is this correct?
-        contacts.Add(contact);
+        //Particle2DContact contact = new Particle2DContact(obj2, restitution, normal, penetration, zeroVector, zeroVector); //is this correct?
+        //contacts.Add(contact);
     }
 
 }

@@ -100,6 +100,7 @@ public class SpringForceGenerator : ForceGenerator2D
 
         addForce(mObj1, diff);
         addForce(mObj2, opposite);
+        Debug.Log(opposite);
         //obj.GetComponent<Particle2D>().AccumulatedForces += force;
     }
 }
@@ -111,7 +112,6 @@ public class BuoyancyForceGenerator : ForceGenerator2D
 
     public void Constructor(float maxDepth, float volume, float waterHeight, float density)
     {
-        Debug.Log("Start");
         mMaxDepth = maxDepth;
         mVolume = volume;
         mWaterHeight = waterHeight;
@@ -120,10 +120,8 @@ public class BuoyancyForceGenerator : ForceGenerator2D
 
     public override void UpdateForce(GameObject obj)
     {
-        Debug.Log(obj);
         //Vector3 diff = mPoint - gameObject.transform.position; //???
         float currentDepth = (obj.transform.position.y);// + mMaxDepth - mWaterHeight) / (2 * mMaxDepth);
-        //Debug.Log(mMaxDepth);
         Vector3 force = new Vector3(0.0f, 0.0f, 0.0f);
 
         if(currentDepth >= mWaterHeight)
@@ -134,26 +132,21 @@ public class BuoyancyForceGenerator : ForceGenerator2D
 
         obj.GetComponent<Particle2D>().DampingConstant = 0.5f;
 
-        if(currentDepth >= (mWaterHeight + mMaxDepth))
+        if(currentDepth >= (mWaterHeight + mMaxDepth)) //out of water
         {
-            Debug.Log("Out of Water");
             force.y = -1 * (mDensity * mVolume);
             return;
         }
 
-        if (currentDepth <= (mWaterHeight - mMaxDepth))
+        if (currentDepth <= (mWaterHeight - mMaxDepth)) //in water
         {
-            Debug.Log("In Water");
             force.y = ((mDensity * mVolume));
         }
 
-        else
+        else //partially in water
         {
-            Debug.Log("Kinda in Water");
             force.y = mDensity * mVolume * (currentDepth - mMaxDepth - mWaterHeight)/2 * mMaxDepth;
-            //obj.GetComponent<Particle2D>().Acceleration = new Vector3(0.0f, 20.0f, 0.0f);
         }
-        // Debug.Log("Force: " + force);
 
         addForce(obj, force * 0.5f); //* time?
         obj.GetComponent<Particle2D>().AccumulatedForces += force;

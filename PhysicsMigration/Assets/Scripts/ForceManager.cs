@@ -54,6 +54,15 @@ public class ForceManager : MonoBehaviour
         return obj.GetComponent<ForceGenerator2D>();
     }
 
+    public ForceGenerator2D NewSpringForceGenerator(GameObject obj1, GameObject obj2, float springConst, float restLength)
+    {
+        //GameObject newForceGenerator = new GameObject("SpringForceGenerator"); //keep this?
+        SpringForceGenerator springForceGenerator = obj1.AddComponent<SpringForceGenerator>();
+        springForceGenerator.Constructor(obj1, obj2, springConst, restLength);
+        addForceGenerator(springForceGenerator);
+        return obj1.GetComponent<ForceGenerator2D>();
+    }
+
    public void addForceGenerator(ForceGenerator2D forceGeneratorToAdd)
    {
         //Debug.Log(forceGeneratorToAdd);

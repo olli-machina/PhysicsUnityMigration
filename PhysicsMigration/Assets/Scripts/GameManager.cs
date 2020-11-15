@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject target, bulletPrefab, waterSprite;
-    Transform gun;
+    public GameObject target, bulletPrefab, waterSprite, springPrefab, rodPrefab;
+    private GameObject gun;
     public ForceManager manager;
     public bool isTarget = false;
+    GunBehaviors gunBehaviors;
 
     // Start is called before the first frame update
     void Start()
     {
         CreateTarget(new Vector3(-82.0f, 25.0f, 0.0f)); //create target at start
                                        //need to set to random position
-        gun = GameObject.Find("Gun").GetComponent<Transform>();
+        gun = GameObject.Find("Gun");
         //manager = GameObject.Find("ForceManager").GetComponent<ForceManager>();
 
     }
@@ -24,9 +25,21 @@ public class GameManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Return))
         {
-            GameObject newBullet = Instantiate(bulletPrefab);
-            newBullet.GetComponent<BulletBehavior>().SetVariables(newBullet);
-            newBullet.transform.position = gun.position;
+            if (gun.GetComponent<GunBehaviors>().currentNum == 0) //regular projectile
+            {
+                GameObject newBullet = Instantiate(bulletPrefab);
+                newBullet.GetComponent<BulletBehavior>().SetVariables(newBullet);
+                newBullet.transform.position = gun.transform.position;
+            }
+            else if(gun.GetComponent<GunBehaviors>().currentNum == 1) //spring projectile
+            {
+                SpringProjectile();
+            }
+            else if(gun.GetComponent<GunBehaviors>().currentNum == 2) //rod projectile
+            {
+                GameObject newBullet1 = Instantiate(rodPrefab);
+                GameObject newBullet2 = Instantiate(rodPrefab);
+            }
         }
 
         if(!isTarget)
@@ -45,7 +58,21 @@ public class GameManager : MonoBehaviour
         ForceGenerator2D bouyancyForce = manager.NewBouyancyForceGenerator(newTarget, -(waterSprite.transform.localScale.y) / 2, 75.0f, (waterSprite.transform.localScale.y) / 2, 5.0f);
         manager.addForceGenerator(bouyancyForce);
         newTarget.GetComponent<TargetBehavior>().forceGen = bouyancyForce;
-        Debug.Log("Acc: " + newTarget.GetComponent<Particle2D>().Acceleration); //This is problem, gravity never goes away.
         isTarget = true;
+    }
+
+    void SpringProjectile()
+    {
+        GameObject newBullet1 = Instantiate(springPrefab);
+        GameObject newBullet2 = Instantiate(springPrefab);
+        newBullet1.GetComponent<BulletBehavior>().SetVariables(newBullet1);
+        newBullet2.GetComponent<BulletBehavior>().SetVariables(newBullet2);
+        newBullet1.transform.position = gun.transform.position;
+        newBullet2.transform.position = gun.transform.position;
+
+        ForceGenerator2D springForce = manager.NewSpringForceGenerator(newBullet1, newBullet2, 1.0f, 20.0f);
+        manager.addForceGenerator(springForce);
+
+        newBullet1.GetComponent<TargetBehavior>().forceGen = springForce;
     }
 }

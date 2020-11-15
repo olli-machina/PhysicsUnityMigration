@@ -48,7 +48,7 @@ public class GunBehaviors : MonoBehaviour
             if (currentNum >= numTypes)
                 currentNum = 0;
             currentProjectile = weapons[currentNum];
-            Debug.Log("Weapon: " + weapons[currentNum]);
+            //Debug.Log("Weapon: " + weapons[currentNum]);
         }
    }
 }
