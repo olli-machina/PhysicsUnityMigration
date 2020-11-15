@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class BulletBehavior : MonoBehaviour
 {
-    ForceGenerator2D forceGen = null;
+    public ForceGenerator2D forceGen = null;
+    public bool isForceGen;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        if (isForceGen)
+            forceGen = gameObject.GetComponent<ForceGenerator2D>();
     }
 
     // Update is called once per frame

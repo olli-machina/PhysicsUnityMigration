@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
                 GameObject newBullet = Instantiate(bulletPrefab);
                 newBullet.GetComponent<BulletBehavior>().SetVariables(newBullet);
                 newBullet.transform.position = gun.transform.position;
+                newBullet.GetComponent<BulletBehavior>().isForceGen = false;
             }
             else if(gun.GetComponent<GunBehaviors>().currentNum == 1) //spring projectile
             {
@@ -70,9 +71,12 @@ public class GameManager : MonoBehaviour
         newBullet1.transform.position = gun.transform.position;
         newBullet2.transform.position = gun.transform.position;
 
-        ForceGenerator2D springForce = manager.NewSpringForceGenerator(newBullet1, newBullet2, 1.0f, 20.0f);
+        newBullet1.GetComponent<BulletBehavior>().isForceGen = true;
+        newBullet2.GetComponent<BulletBehavior>().isForceGen = false;
+
+        ForceGenerator2D springForce = manager.NewSpringForceGenerator(newBullet1, newBullet2, 1.0f, 10.0f);
         manager.addForceGenerator(springForce);
 
-        newBullet1.GetComponent<TargetBehavior>().forceGen = springForce;
+        newBullet1.GetComponent<BulletBehavior>().forceGen = springForce;
     }
 }

@@ -96,7 +96,7 @@ public class SpringForceGenerator : ForceGenerator2D
         diff.Normalize();
         diff *= -magnitude;
 
-        Vector3 opposite = new Vector3(-diff.x, -diff.y, 0);
+        Vector3 opposite = new Vector3(-diff.x + 2, -diff.y + 2, 0);
 
         addForce(mObj1, diff);
         addForce(mObj2, opposite);

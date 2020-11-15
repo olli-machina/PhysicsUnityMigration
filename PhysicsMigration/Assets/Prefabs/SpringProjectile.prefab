@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 9200052422940243914}
   - component: {fileID: 6759855852283183287}
   - component: {fileID: 9110601164958085112}
-  - component: {fileID: 5244252427102813966}
   m_Layer: 0
   m_Name: SpringProjectile
   m_TagString: Pistol
@@ -118,6 +117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a0545b7e7f3c3945bfb8b2338d17ba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forceGen: {fileID: 0}
+  isForceGen: 0
 --- !u!114 &9110601164958085112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,18 +131,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b4aaaa7e7fda043a2aab14b58feeda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5244252427102813966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6012631829946816775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9dd18a9fb7c412f439c86e8beeced461, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mRestitutionCoefficient: 0
-  mPenetration: 0
-  mContactNormal: {x: 0, y: 0, z: 0}
