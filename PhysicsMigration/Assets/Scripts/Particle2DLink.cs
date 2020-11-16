@@ -5,26 +5,15 @@ using UnityEngine;
 public class Particle2DLink : MonoBehaviour
 {
 
-    public GameObject obj2;
-    public float mMaxLength;
+    public GameObject mObj1, mObj2;
+    public float mMaxLength = 10.0f;
     public Particle2DContact particle1, particle2;
     public Vector3 zeroVector = new Vector3(0.0f, 0.0f, 0.0f);
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //public List<Particle2DContact> mContacts;
 
     virtual public void CreateContacts(List<Particle2DContact> contacts)//&?
     {
+
     }
 
     public float distanceBetween(Vector3 pos1, Vector3 pos2)
@@ -44,6 +33,15 @@ public class Particle2DLink : MonoBehaviour
         float lengthSquared = getLengthSquared(temp);
         return Mathf.Sqrt(lengthSquared);
     }
+
+    public Particle2DLink NewLink(GameObject obj1, GameObject obj2, float maxLength)
+    {
+        //GameObject newForceGenerator = new GameObject("SpringForceGenerator"); //keep this?
+        ParticleRod particleRod = obj1.AddComponent<ParticleRod>();
+        particleRod.Constructor(obj1, obj2, maxLength);
+        particleRod.CreateContacts(mContacts);
+        return obj1.GetComponent<ParticleRod>();
+    }
 }
 
 public class ParticleCable : Particle2DLink
@@ -54,15 +52,17 @@ public class ParticleCable : Particle2DLink
 
     override public void CreateContacts(List<Particle2DContact> contacts)
     {
+        
         float length = getLength(gameObject.transform.position); //?
         if (length < mMaxLength)
             return;
-        Vector3 normal = obj2.transform.position - gameObject.transform.position;
+        Vector3 normal = mObj2.transform.position - gameObject.transform.position;
         normal.Normalize();//?
 
         float penetration = length - mMaxLength;
-        //Particle2DContact contact = new Particle2DContact(obj2, restitution, normal, penetration, zeroVector, zeroVector); //is this correct?
-        //contacts.Add(contact);
+        Particle2DContact contact = new Particle2DContact();
+        contact.Constructor(mObj1, mObj2, restitution, penetration, normal, zeroVector, zeroVector); //is this correct?
+        contacts.Add(contact);
     }
 }
 
@@ -72,13 +72,13 @@ public class ParticleRod : Particle2DLink
 
     override public void CreateContacts(List<Particle2DContact> contacts)
     {
-        float penetration = 0.0f;
+        float penetration;
         float restitution = 0.0f;
-        float length = getLength(gameObject.transform.position);
+        float length = distanceBetween(mObj1.transform.position, mObj2.transform.position);
         if (length == mLength)
             return;
 
-        Vector3 normal = obj2.transform.position - gameObject.transform.position;
+        Vector3 normal = mObj2.transform.position - mObj1.transform.position;
         normal.Normalize();
 
         if (length > mLength)
@@ -90,8 +90,19 @@ public class ParticleRod : Particle2DLink
         }
 
         penetration *= 0.001f;
-        //Particle2DContact contact = new Particle2DContact(obj2, restitution, normal, penetration, zeroVector, zeroVector); //is this correct?
-        //contacts.Add(contact);
+        Debug.Log(length + "Max: " + mLength);
+        mObj1.AddComponent<Particle2DContact>();
+        Particle2DContact contact = mObj1.GetComponent<Particle2DContact>();
+        contact.Constructor(mObj1, mObj2, restitution, penetration, normal, zeroVector, zeroVector);
+        contacts.Add(contact);
+    }
+
+    public void Constructor(GameObject obj1, GameObject obj2, float length)
+    {
+        mObj1 = obj1;
+        mObj2 = obj2;
+        mLength = length;
     }
 
 }
+

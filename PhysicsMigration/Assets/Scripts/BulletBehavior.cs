@@ -5,13 +5,16 @@ using UnityEngine;
 public class BulletBehavior : MonoBehaviour
 {
     public ForceGenerator2D forceGen = null;
-    public bool isForceGen;
+    public Particle2DLink particleLink = null;
+    public bool isForceGen = false, isParticleLink = false;
 
     // Start is called before the first frame update
     void Start()
     {
         if (isForceGen)
             forceGen = gameObject.GetComponent<ForceGenerator2D>();
+        if(isParticleLink)
+            particleLink = gameObject.GetComponent<Particle2DLink>();
     }
 
     // Update is called once per frame

@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public GameObject target, bulletPrefab, waterSprite, springPrefab, rodPrefab;
     private GameObject gun;
     public ForceManager manager;
+    public Particle2DLink mLink;
     public bool isTarget = false;
     GunBehaviors gunBehaviors;
 
@@ -30,7 +31,7 @@ public class GameManager : MonoBehaviour
                 GameObject newBullet = Instantiate(bulletPrefab);
                 newBullet.GetComponent<BulletBehavior>().SetVariables(newBullet);
                 newBullet.transform.position = gun.transform.position;
-                newBullet.GetComponent<BulletBehavior>().isForceGen = false;
+                //newBullet.GetComponent<BulletBehavior>().isForceGen = false;
             }
             else if(gun.GetComponent<GunBehaviors>().currentNum == 1) //spring projectile
             {
@@ -38,8 +39,10 @@ public class GameManager : MonoBehaviour
             }
             else if(gun.GetComponent<GunBehaviors>().currentNum == 2) //rod projectile
             {
-                GameObject newBullet1 = Instantiate(rodPrefab);
-                GameObject newBullet2 = Instantiate(rodPrefab);
+                GameObject newParticleLink = new GameObject("ParticleLink");
+                Particle2DLink tempParticleLink = newParticleLink.AddComponent<Particle2DLink>();
+                mLink = tempParticleLink;
+                RodProjectile();
             }
         }
 
@@ -72,11 +75,28 @@ public class GameManager : MonoBehaviour
         newBullet2.transform.position = gun.transform.position;
 
         newBullet1.GetComponent<BulletBehavior>().isForceGen = true;
-        newBullet2.GetComponent<BulletBehavior>().isForceGen = false;
+       // newBullet2.GetComponent<BulletBehavior>().isForceGen = false;
 
         ForceGenerator2D springForce = manager.NewSpringForceGenerator(newBullet1, newBullet2, 1.0f, 10.0f);
         manager.addForceGenerator(springForce);
 
         newBullet1.GetComponent<BulletBehavior>().forceGen = springForce;
+    }
+    
+    void RodProjectile()
+    {
+        GameObject newBullet1 = Instantiate(rodPrefab);
+        GameObject newBullet2 = Instantiate(rodPrefab);
+        newBullet1.GetComponent<BulletBehavior>().SetVariables(newBullet1);
+        newBullet2.GetComponent<BulletBehavior>().SetVariables(newBullet2);
+        newBullet1.transform.position = gun.transform.position;
+        newBullet2.transform.position = gun.transform.position;
+
+        newBullet1.GetComponent<BulletBehavior>().isParticleLink = true;
+        //newBullet2.GetComponent<BulletBehavior>().isParticleLink = true;
+
+        Particle2DLink pLink = mLink.NewLink(newBullet1, newBullet2, 10.0f);
+
+        newBullet1.GetComponent<BulletBehavior>().particleLink = pLink;
     }
 }

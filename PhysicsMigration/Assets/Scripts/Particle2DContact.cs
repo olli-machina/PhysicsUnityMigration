@@ -15,9 +15,7 @@ public class Particle2DContact : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        obj1Particle = mObj1.GetComponent<Particle2D>();
-        if(mObj2)
-            obj2Particle = mObj2.GetComponent<Particle2D>();
+
     }
     public void Constructor(GameObject obj1, GameObject obj2, float restitutionCoeff, float penetration, Vector3 contactNormal, Vector3 move1, Vector3 move2)
     {
@@ -28,6 +26,10 @@ public class Particle2DContact : MonoBehaviour
         mContactNormal = contactNormal;
         mMove1 = move1;
         mMove2 = move2;
+
+        obj1Particle = mObj1.GetComponent<Particle2D>();
+        if (mObj2)
+            obj2Particle = mObj2.GetComponent<Particle2D>();
     }
 
     void Resolve(double dt) //?
