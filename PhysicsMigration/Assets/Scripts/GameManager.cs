@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
                 Pmanager.addParticle2D(newBullet/*.GetComponent<Particle2D>()*/);
                 newBullet.GetComponent<BulletBehavior>().SetVariables(newBullet);
                 newBullet.transform.position = gun.transform.position;
+                newBullet.transform.rotation = gun.transform.rotation;
                 //newBullet.GetComponent<BulletBehavior>().isForceGen = false;
             }
             else if(gun.GetComponent<GunBehaviors>().currentNum == 1) //spring projectile

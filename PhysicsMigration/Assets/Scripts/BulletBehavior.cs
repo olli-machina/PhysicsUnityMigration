@@ -30,7 +30,7 @@ public class BulletBehavior : MonoBehaviour
     {
         Particle2D info = projectile.GetComponent<Particle2D>();
         info.speed = 800.0f;
-        info.Acceleration = new Vector3(100.0f, 0.0f, 0.0f);
+        info.Acceleration = new Vector3(100.0f, 10.0f, 0.0f);
         info.Velocity = projectile.transform.forward * info.speed;
         info.Velocity.z = 0.0f;
         info.DampingConstant = 0.99f;
