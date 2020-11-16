@@ -21,7 +21,7 @@ public class BulletBehavior : MonoBehaviour
     void Update()
     {
         if (gameObject.transform.position.y > 70.0 || gameObject.transform.position.y < -70.0
-            || gameObject.transform.position.x < -120.0 || gameObject.transform.position.x > 120.0) //change to screen height
+            || gameObject.transform.position.x < -120.0 || gameObject.transform.position.x > 120.0)
 
             Destroy(gameObject);
     }
@@ -29,7 +29,7 @@ public class BulletBehavior : MonoBehaviour
     public void SetVariables(GameObject projectile, GameObject gun)
     {
         Particle2D info = projectile.GetComponent<Particle2D>();
-        info.speed = 300.0f;
+        info.speed = 200.0f;
         info.Acceleration = new Vector3(0.0f, -5.0f, 0.0f);
         Vector3 dir = new Vector3((float)Mathf.Cos(gun.transform.rotation.z), (float)Mathf.Sin(gun.transform.rotation.z), 0.0f);
         info.Velocity = dir * info.speed;

@@ -4,32 +4,14 @@ using UnityEngine;
 
 public class TargetBehavior : MonoBehaviour
 {
-   // bool inWater = false;
     public ForceGenerator2D forceGen;
     GameManager gameManager;
-    //BuoyancyForceGenerator buoyancy;
-
 
     // Start is called before the first frame update
     void Start()
     {
         forceGen = gameObject.GetComponent<ForceGenerator2D>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        //buoyancy = gameObject.GetComponents<BuoyancyForceGenerator>();
-        //forceGen = BuoyancyForceGenerator();
-        //forceGen = Instantiate(buoyancy);
-        //ForceManager.addForceGenerator(forceGen);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //if (gameObject.transform.position.y > 70.0 || gameObject.transform.position.y < -70.0
-        //    || gameObject.transform.position.x < -120.0 || gameObject.transform.position.x > 120.0) //change to screen height
-        //{
-        //    gameManager.isTarget = false;
-        //    Destroy(gameObject);
-        //}
     }
 
     public void SetVariables(GameObject target)

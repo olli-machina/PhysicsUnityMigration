@@ -3,12 +3,11 @@ using UnityEngine;
 
 public class ForceManager : MonoBehaviour
 {
-    private static ForceManager instance; //why?
+    private static ForceManager instance; //Static Object
     List<ForceGenerator2D> listOfGenerators = new List<ForceGenerator2D>();
     List<ForceGenerator2D> deadGenerators = new List<ForceGenerator2D>();
     ForceGenerator2D forceGenerator;
     public static ForceManager PublicInstance { get { return instance; } }
-   //public static GameObject springForceSecondObject;
 
    // Start is called before the first frame update
    private void Awake()
@@ -25,21 +24,15 @@ public class ForceManager : MonoBehaviour
         NewPointForceGenerator(new Vector3(0, 0, 0), 1);
     }
 
-    private void FixedUpdate()
-    {
-        //forceGenerator.addForce()
-    }
-
-
     // Update is called once per frame
     void Update()
     {
         updateall();
     }
 
-    public ForceGenerator2D NewPointForceGenerator(Vector3 point, float magnitude) //look into this
+    public ForceGenerator2D NewPointForceGenerator(Vector3 point, float magnitude)
     {
-        GameObject newForceGenerator = new GameObject("PointForceGenerator"); //keep this?
+        GameObject newForceGenerator = new GameObject("PointForceGenerator");
         PointForceGenerator pointForceGenerator = newForceGenerator.AddComponent<PointForceGenerator>();
         pointForceGenerator.Constructor(point, magnitude);
         addForceGenerator(pointForceGenerator);
@@ -56,7 +49,6 @@ public class ForceManager : MonoBehaviour
 
     public ForceGenerator2D NewSpringForceGenerator(GameObject obj1, GameObject obj2, float springConst, float restLength)
     {
-        //GameObject newForceGenerator = new GameObject("SpringForceGenerator"); //keep this?
         SpringForceGenerator springForceGenerator = obj1.AddComponent<SpringForceGenerator>();
         springForceGenerator.Constructor(obj1, obj2, springConst, restLength);
         addForceGenerator(springForceGenerator);
@@ -65,7 +57,6 @@ public class ForceManager : MonoBehaviour
 
    public void addForceGenerator(ForceGenerator2D forceGeneratorToAdd)
    {
-        //Debug.Log(forceGeneratorToAdd);
         listOfGenerators.Add(forceGeneratorToAdd);
    }
    public void removeForceGenerator(ForceGenerator2D forceGeneratorToRemove)
@@ -74,13 +65,8 @@ public class ForceManager : MonoBehaviour
    }
    public void updateall()
    {
-       // Debug.Log("Called");
-        Particle2D[] allParticlesActive = (Particle2D[])GameObject.FindObjectsOfType(typeof(Particle2D)); //needs to be typecast
+        Particle2D[] allParticlesActive = (Particle2D[])GameObject.FindObjectsOfType(typeof(Particle2D)); 
 
-        //for (var i = 0; i < arrayOfGenerators.Count; i++)
-        //{
-        //    arrayOfGenerators[i].UpdateForce(arrayOfGenerators[i].gameObject, Time.deltaTime);
-        //}
         foreach(ForceGenerator2D generator in listOfGenerators)
         {
             if (generator == null)

@@ -20,9 +20,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         CreateTarget(new Vector3(-82.0f, 25.0f, 0.0f)); //create target at start
-                                       //need to set to random position
         gun = GameObject.Find("Gun");
-        //manager = GameObject.Find("ForceManager").GetComponent<ForceManager>();
 
     }
 
@@ -34,11 +32,10 @@ public class GameManager : MonoBehaviour
             if (gun.GetComponent<GunBehaviors>().currentNum == 0) //regular projectile
             {
                 GameObject newBullet = Instantiate(bulletPrefab);
-                Pmanager.addParticle2D(newBullet/*.GetComponent<Particle2D>()*/);
+                Pmanager.addParticle2D(newBullet);
                 newBullet.GetComponent<BulletBehavior>().SetVariables(newBullet, gun);
                 newBullet.transform.position = gun.transform.position;
                 newBullet.transform.rotation = gun.transform.rotation;
-                //newBullet.GetComponent<BulletBehavior>().isForceGen = false;
             }
             else if(gun.GetComponent<GunBehaviors>().currentNum == 1) //spring projectile
             {
@@ -64,11 +61,9 @@ public class GameManager : MonoBehaviour
     void CreateTarget(Vector3 pos)
     {
         GameObject newTarget = Instantiate(target);
-
-        // newTarget.transform.position = new Vector3(Random.Range(-120, 120), Random.Range(-70, 70), 0.0f);
         newTarget.transform.position = pos;
         Debug.Log(Pmanager);
-        Pmanager.addParticle2D(newTarget/*.GetComponent<Particle2D>()*/);
+        Pmanager.addParticle2D(newTarget);
         newTarget.GetComponent<TargetBehavior>().SetVariables(newTarget);
         ForceGenerator2D bouyancyForce = Fmanager.NewBouyancyForceGenerator(newTarget, -(waterSprite.transform.localScale.y) / 2, 75.0f, (waterSprite.transform.localScale.y) / 2, 5.0f);
         Fmanager.addForceGenerator(bouyancyForce);
@@ -86,7 +81,6 @@ public class GameManager : MonoBehaviour
         newBullet2.transform.position = gun.transform.position;
 
         newBullet1.GetComponent<BulletBehavior>().isForceGen = true;
-       // newBullet2.GetComponent<BulletBehavior>().isForceGen = false;
 
         ForceGenerator2D springForce = Fmanager.NewSpringForceGenerator(newBullet1, newBullet2, 1.0f, 10.0f);
         Fmanager.addForceGenerator(springForce);
@@ -100,14 +94,13 @@ public class GameManager : MonoBehaviour
         GameObject newBullet2 = Instantiate(rodPrefab);
         newBullet1.GetComponent<BulletBehavior>().SetVariables(newBullet1, gun);
         newBullet2.GetComponent<BulletBehavior>().SetVariables(newBullet2, gun);
-        newBullet1.transform.position = gun.transform.position;
+        newBullet1.transform.position = new Vector3(gun.transform.position.x, gun.transform.position.y + 10.0f, 0.0f);
         newBullet2.transform.position = gun.transform.position;
 
         newBullet1.GetComponent<BulletBehavior>().isParticleLink = true;
-        //newBullet2.GetComponent<BulletBehavior>().isParticleLink = true;
 
         Particle2DLink pLink = mLink.NewLink(newBullet1, newBullet2, 10.0f);
-        pContact.resolveContacts(mLink., Time.deltaTime);
+        //pContact.resolveContacts(mLink., Time.deltaTime);
         newBullet1.GetComponent<BulletBehavior>().particleLink = pLink;
     }
 }

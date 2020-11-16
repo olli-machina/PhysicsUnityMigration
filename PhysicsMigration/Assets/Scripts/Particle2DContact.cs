@@ -32,13 +32,13 @@ public class Particle2DContact : MonoBehaviour
             obj2Particle = mObj2.GetComponent<Particle2D>();
     }
 
-    void Resolve(double dt) //?
+    void Resolve(double dt)
     {
         ResolveVelocity(dt);
         ResolveInterpenetration(dt);
     }
 
-    float CalculateSeperatingVelocity() //const?
+    float CalculateSeperatingVelocity()
     {
         Vector3 relativeVel = obj1Particle.Velocity;
         if (mObj2)
@@ -52,13 +52,13 @@ public class Particle2DContact : MonoBehaviour
         float sepVelocity = separatingVelocity();
         if (sepVelocity > 0.0f)
             return;
-        float newSepVel = -sepVelocity * mRestitutionCoefficient; //need to set the R Coeff somewhere
+        float newSepVel = -sepVelocity * mRestitutionCoefficient;
 
-        Vector3 velFromAcc = obj1Particle.Acceleration;//   obj1.GetComponent<Particle2D>().Acceleration;
+        Vector3 velFromAcc = obj1Particle.Acceleration;
 
         if (mObj2)
-            velFromAcc -= obj2Particle.Acceleration;//obj2.GetComponent<Particle2D>().Acceleration;
-        float accCausedSepVelocity = dotProduct(velFromAcc, transform.forward) * Time.deltaTime; //can this be time.deltatime?
+            velFromAcc -= obj2Particle.Acceleration;
+        float accCausedSepVelocity = dotProduct(velFromAcc, transform.forward) * Time.deltaTime;
 
         if (accCausedSepVelocity < 0.0f)
         {
@@ -67,9 +67,9 @@ public class Particle2DContact : MonoBehaviour
                 newSepVel = 0.0f;
         }
         float dataVel = newSepVel - sepVelocity;
-        float totalInverseMass = obj1Particle.inverseMass; //obj1.GetComponent<Particle2D>().inverseMass;
+        float totalInverseMass = obj1Particle.inverseMass;
         if (mObj2)
-            totalInverseMass += obj2Particle.inverseMass;//obj2.GetComponent<Particle2D>().inverseMass;
+            totalInverseMass += obj2Particle.inverseMass;
         if (totalInverseMass <= 0)
             return;
 
@@ -78,13 +78,6 @@ public class Particle2DContact : MonoBehaviour
 
         Vector3 newVelocity = (obj1Particle.Velocity + impulsePerIMass) * obj1Particle.inverseMass;
 
-        //obj1Particle.setVelocity(newVelocity);
-
-        //if (obj2)
-        //{
-        //    Vector3 newVelocity2 = (obj2Particle.Velocity + impulsePerIMass) * -obj2Particle.inverseMass;
-        //    obj2Particle.setVelocity(newVelocity2);
-        //}
     }
 
     void ResolveInterpenetration(double dt)

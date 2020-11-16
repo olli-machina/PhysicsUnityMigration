@@ -25,7 +25,6 @@ public class ParticleManager : MonoBehaviour
 
    public void addParticle2D (GameObject particle2DToAdd)
    {
-      //Particle2D particleData = particle2DToAdd.GetComponent<Particle2D>();
       listOfParticle2D.Add(particle2DToAdd);
    }
    public void removeParticle2D(GameObject particle2DToRemove)
@@ -38,12 +37,6 @@ public class ParticleManager : MonoBehaviour
 
    public void updateall()
    {
-        // Particle2D[] allParticlesActive = (Particle2D[])GameObject.FindObjectsOfType(typeof(Particle2D)); //needs to be typecast
-
-        //for (var i = 0; i < arrayOfGenerators.Count; i++)
-        //{
-        //    arrayOfGenerators[i].UpdateForce(arrayOfGenerators[i].gameObject, Time.deltaTime);
-        //}
         foreach (GameObject particle in listOfParticle2D)
       {
          foreach (GameObject particle2 in listOfParticle2D)
@@ -59,9 +52,7 @@ public class ParticleManager : MonoBehaviour
                if(particle.tag != particle2.tag &&
                   checkCollision(particle.GetComponent<Particle2D>(), particle2.GetComponent<Particle2D>()) == true)
                {
-                  //Destroy(particle);
                   deadParticle2D.Add(particle);
-                  //Destroy(particle2);
                   deadParticle2D.Add(particle2);
                   int deleteIndex1 = listOfParticle2D.IndexOf(particle);
                   int deleteIndex2 = listOfParticle2D.IndexOf(particle2);

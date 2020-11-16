@@ -7,10 +7,10 @@ public class Particle2D : MonoBehaviour
 
     public float Mass = 0.0f;
 
-    public Vector3 Velocity;// = new Vector3 (0.0f, 0.0f, 0.0f);
-    public Vector3 Acceleration;// = new Vector3(0.0f, 0.0f, 0.0f);
-    public Vector3 AccumulatedForces;// = new Vector3(0.0f, 0.0f, 0.0f);
-    public float DampingConstant = 0.0f;//MUST BE NORMALIZED
+    public Vector3 Velocity;
+    public Vector3 Acceleration;
+    public Vector3 AccumulatedForces;
+    public float DampingConstant = 0.0f;
     public bool ShouldIgnoreForces = true;
     public float inverseMass;
     public Integrator integrator;
@@ -27,7 +27,6 @@ public class Particle2D : MonoBehaviour
     void Update()
     {
         integrator.integrator(gameObject);
-        //Debug.Log(gameObject);
     }
 
     public void setMass(float newMass)

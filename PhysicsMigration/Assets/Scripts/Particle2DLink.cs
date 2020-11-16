@@ -9,9 +9,8 @@ public class Particle2DLink : MonoBehaviour
     public float mMaxLength = 10.0f;
     public Particle2DContact particle1, particle2;
     public Vector3 zeroVector = new Vector3(0.0f, 0.0f, 0.0f);
-    //public List<Particle2DContact> mContacts;
 
-    virtual public void CreateContacts(List<Particle2DContact> contacts)//&?
+    virtual public void CreateContacts(List<Particle2DContact> contacts)
     {
 
     }
@@ -19,7 +18,7 @@ public class Particle2DLink : MonoBehaviour
     public float distanceBetween(Vector3 pos1, Vector3 pos2)
     {
         Vector3 temp = (pos1-pos2);
-        return getLength(temp); //might be wrong
+        return getLength(temp);
     }
 
     public float getLengthSquared(Vector3 temp)
@@ -36,10 +35,8 @@ public class Particle2DLink : MonoBehaviour
 
     public Particle2DLink NewLink(GameObject obj1, GameObject obj2, float maxLength)
     {
-        //GameObject newForceGenerator = new GameObject("SpringForceGenerator"); //keep this?
         ParticleRod particleRod = obj1.AddComponent<ParticleRod>();
         particleRod.Constructor(obj1, obj2, maxLength);
-        //particleRod.CreateContacts(mContacts);
         return obj1.GetComponent<ParticleRod>();
     }
 }
@@ -53,15 +50,15 @@ public class ParticleCable : Particle2DLink
     override public void CreateContacts(List<Particle2DContact> contacts)
     {
         
-        float length = getLength(gameObject.transform.position); //?
+        float length = getLength(gameObject.transform.position);
         if (length < mMaxLength)
             return;
         Vector3 normal = mObj2.transform.position - gameObject.transform.position;
-        normal.Normalize();//?
+        normal.Normalize();
 
         float penetration = length - mMaxLength;
         Particle2DContact contact = new Particle2DContact();
-        contact.Constructor(mObj1, mObj2, restitution, penetration, normal, zeroVector, zeroVector); //is this correct?
+        contact.Constructor(mObj1, mObj2, restitution, penetration, normal, zeroVector, zeroVector);
         contacts.Add(contact);
     }
 }

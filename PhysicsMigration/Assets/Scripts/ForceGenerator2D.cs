@@ -9,16 +9,11 @@ public class ForceGenerator2D : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //particle = gameObject.GetComponent<Particle2D>();
+
 	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-    public virtual void UpdateForce(GameObject obj)//&?
+    public virtual void UpdateForce(GameObject obj)
     {
     }
 
@@ -32,7 +27,6 @@ public class PointForceGenerator : ForceGenerator2D
 {
     private Vector3 mPoint;
     private float mMagnitude;
-    //public Particle2D particle;
 
     public void Constructor(Vector3 point, float magnitude)
     {
@@ -42,7 +36,7 @@ public class PointForceGenerator : ForceGenerator2D
 
     public override void UpdateForce(GameObject obj)
     {
-        Vector3 diff = mPoint - gameObject.transform.position; //???
+        Vector3 diff = mPoint - gameObject.transform.position;
 
         float range = 10;
         float rangeSQ = range * range;
@@ -53,13 +47,11 @@ public class PointForceGenerator : ForceGenerator2D
         if(distSQ < rangeSQ)
         {
             dist = Vector3.Distance(mPoint, obj.transform.position);
-                //GetComponent<Particle2DLink>().getLength(diff);
             float proportionAway = dist / range;
             proportionAway = 1 - proportionAway;
             diff.Normalize();
 
-            //particle.AccumulatedForces += (diff * (mMagnitude * proportionAway));
-            addForce(obj, (diff * (mMagnitude * proportionAway)) * Time.deltaTime); //will this work right?
+            addForce(obj, (diff * (mMagnitude * proportionAway)) * Time.deltaTime);
         }
     }
 
@@ -81,11 +73,12 @@ public class SpringForceGenerator : ForceGenerator2D
 
     public override void UpdateForce(GameObject obj)
     {
+        if (!mObj1 || !mObj2)
+            return;
+
         Vector3 pos1 = mObj1.transform.position;
         Vector3 pos2 = mObj2.transform.position;
 
-        if (!mObj1 || !mObj2)
-            return;
 
         Vector3 diff = pos1 - pos2;
         float dist = Vector3.Distance(pos1, pos2);
@@ -100,13 +93,11 @@ public class SpringForceGenerator : ForceGenerator2D
 
         addForce(mObj1, diff);
         addForce(mObj2, opposite);
-        //obj.GetComponent<Particle2D>().AccumulatedForces += force;
     }
 }
 
 public class BuoyancyForceGenerator : ForceGenerator2D
 {
-    //private Vector3 mPoint;
     private float mMaxDepth, mVolume, mWaterHeight, mDensity;
 
     public void Constructor(float maxDepth, float volume, float waterHeight, float density)
@@ -119,8 +110,7 @@ public class BuoyancyForceGenerator : ForceGenerator2D
 
     public override void UpdateForce(GameObject obj)
     {
-        //Vector3 diff = mPoint - gameObject.transform.position; //???
-        float currentDepth = (obj.transform.position.y);// + mMaxDepth - mWaterHeight) / (2 * mMaxDepth);
+        float currentDepth = (obj.transform.position.y);
         Vector3 force = new Vector3(0.0f, 0.0f, 0.0f);
 
         if(currentDepth >= mWaterHeight)
@@ -147,7 +137,7 @@ public class BuoyancyForceGenerator : ForceGenerator2D
             force.y = mDensity * mVolume * (currentDepth - mMaxDepth - mWaterHeight)/2 * mMaxDepth;
         }
 
-        addForce(obj, force * 0.5f); //* time?
+        addForce(obj, force * 0.5f);
         obj.GetComponent<Particle2D>().AccumulatedForces += force;
     }
 }
