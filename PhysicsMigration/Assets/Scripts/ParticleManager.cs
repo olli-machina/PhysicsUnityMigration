@@ -5,15 +5,16 @@ using UnityEngine;
 public class ParticleManager : MonoBehaviour
 {
 
-   List<Particle2D> listOfParticle2D = new List<Particle2D>();
-   List<Particle2D> deadParticle2D = new List<Particle2D>();
+   List<GameObject> listOfParticle2D = new List<GameObject>();
+   List<GameObject> deadParticle2D = new List<GameObject>();
+   GameManager gameManager;
 
    private static Particle2D instance;
    public static Particle2D PublicInstance { get { return instance; } }
    // Start is called before the first frame update
    void Start()
     {
-        
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -22,28 +23,30 @@ public class ParticleManager : MonoBehaviour
       updateall();
     }
 
-   public void addParticle2D (Particle2D particle2DToAdd)
+   public void addParticle2D (GameObject particle2DToAdd)
    {
-      //Debug.Log(forceGeneratorToAdd);
+      //Particle2D particleData = particle2DToAdd.GetComponent<Particle2D>();
       listOfParticle2D.Add(particle2DToAdd);
    }
-   public void removeParticle2D(Particle2D particle2DToRemove)
+   public void removeParticle2D(GameObject particle2DToRemove)
    {
-      listOfParticle2D.Remove(particle2DToRemove);
+        if (particle2DToRemove && particle2DToRemove.tag == "Target")
+            gameManager.isTarget = false;
+        listOfParticle2D.Remove(particle2DToRemove);
+        Destroy(particle2DToRemove);
    }
 
    public void updateall()
    {
-      // Debug.Log("Called");
-     // Particle2D[] allParticlesActive = (Particle2D[])GameObject.FindObjectsOfType(typeof(Particle2D)); //needs to be typecast
+        // Particle2D[] allParticlesActive = (Particle2D[])GameObject.FindObjectsOfType(typeof(Particle2D)); //needs to be typecast
 
-      //for (var i = 0; i < arrayOfGenerators.Count; i++)
-      //{
-      //    arrayOfGenerators[i].UpdateForce(arrayOfGenerators[i].gameObject, Time.deltaTime);
-      //}
-      foreach (Particle2D particle in listOfParticle2D)
+        //for (var i = 0; i < arrayOfGenerators.Count; i++)
+        //{
+        //    arrayOfGenerators[i].UpdateForce(arrayOfGenerators[i].gameObject, Time.deltaTime);
+        //}
+        foreach (GameObject particle in listOfParticle2D)
       {
-         foreach (Particle2D particle2 in listOfParticle2D)
+         foreach (GameObject particle2 in listOfParticle2D)
          {
             if (particle == null)
                deadParticle2D.Add(particle);
@@ -53,19 +56,23 @@ public class ParticleManager : MonoBehaviour
 
             else
             {
-               if(checkCollision(particle, particle2) == true)
+               if(particle.tag != particle2.tag &&
+                  checkCollision(particle.GetComponent<Particle2D>(), particle2.GetComponent<Particle2D>()) == true)
                {
-                  Destroy(particle);
+                  //Destroy(particle);
                   deadParticle2D.Add(particle);
-                  Destroy(particle2);
+                  //Destroy(particle2);
                   deadParticle2D.Add(particle2);
+                  int deleteIndex1 = listOfParticle2D.IndexOf(particle);
+                  int deleteIndex2 = listOfParticle2D.IndexOf(particle2);
                }
             }
          }
             
       }
 
-      foreach (Particle2D particle in deadParticle2D)
+      Debug.Log(listOfParticle2D.Count);
+      foreach (GameObject particle in deadParticle2D)
          removeParticle2D(particle);
 
       deadParticle2D.Clear();

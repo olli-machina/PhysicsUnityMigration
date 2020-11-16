@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public ForceManager Fmanager;
     public ParticleManager Pmanager;
     public Particle2DLink mLink;
-    public bool isTarget = false;
+    public bool isTarget = false, isAlive = true;
     GunBehaviors gunBehaviors;
 
     // Start is called before the first frame update
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
             if (gun.GetComponent<GunBehaviors>().currentNum == 0) //regular projectile
             {
                 GameObject newBullet = Instantiate(bulletPrefab);
-                Pmanager.addParticle2D(newBullet.GetComponent<Particle2D>());
+                Pmanager.addParticle2D(newBullet/*.GetComponent<Particle2D>()*/);
                 newBullet.GetComponent<BulletBehavior>().SetVariables(newBullet);
                 newBullet.transform.position = gun.transform.position;
                 //newBullet.GetComponent<BulletBehavior>().isForceGen = false;
@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
         // newTarget.transform.position = new Vector3(Random.Range(-120, 120), Random.Range(-70, 70), 0.0f);
         newTarget.transform.position = pos;
         Debug.Log(Pmanager);
-        Pmanager.addParticle2D(newTarget.GetComponent<Particle2D>());
+        Pmanager.addParticle2D(newTarget/*.GetComponent<Particle2D>()*/);
         newTarget.GetComponent<TargetBehavior>().SetVariables(newTarget);
         ForceGenerator2D bouyancyForce = Fmanager.NewBouyancyForceGenerator(newTarget, -(waterSprite.transform.localScale.y) / 2, 75.0f, (waterSprite.transform.localScale.y) / 2, 5.0f);
         Fmanager.addForceGenerator(bouyancyForce);
