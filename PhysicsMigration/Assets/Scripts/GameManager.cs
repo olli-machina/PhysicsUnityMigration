@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class GameManager : MonoBehaviour
     public Particle2DLink mLink;
     public bool isTarget = false, isAlive = true;
     GunBehaviors gunBehaviors;
+    public Text scoreText;
+    int score;
 
     // Start is called before the first frame update
     void Start()
@@ -51,6 +54,8 @@ public class GameManager : MonoBehaviour
         if(!isTarget)
         {
             CreateTarget(new Vector3(Random.Range(-110, 110), Random.Range(-60, 60), 0.0f));
+            score++;
+            scoreText.text = score.ToString();
         }
     }
 

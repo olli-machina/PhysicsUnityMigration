@@ -354,6 +354,7 @@ MonoBehaviour:
   mLink: {fileID: 0}
   isTarget: 0
   isAlive: 0
+  scoreText: {fileID: 848337640}
 --- !u!4 &486325582
 Transform:
   m_ObjectHideFlags: 0
