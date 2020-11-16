@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
             {
                 GameObject newBullet = Instantiate(bulletPrefab);
                 Pmanager.addParticle2D(newBullet/*.GetComponent<Particle2D>()*/);
-                newBullet.GetComponent<BulletBehavior>().SetVariables(newBullet);
+                newBullet.GetComponent<BulletBehavior>().SetVariables(newBullet, gun);
                 newBullet.transform.position = gun.transform.position;
                 newBullet.transform.rotation = gun.transform.rotation;
                 //newBullet.GetComponent<BulletBehavior>().isForceGen = false;
@@ -79,8 +79,8 @@ public class GameManager : MonoBehaviour
     {
         GameObject newBullet1 = Instantiate(springPrefab);
         GameObject newBullet2 = Instantiate(springPrefab);
-        newBullet1.GetComponent<BulletBehavior>().SetVariables(newBullet1);
-        newBullet2.GetComponent<BulletBehavior>().SetVariables(newBullet2);
+        newBullet1.GetComponent<BulletBehavior>().SetVariables(newBullet1, gun);
+        newBullet2.GetComponent<BulletBehavior>().SetVariables(newBullet2, gun);
         newBullet1.transform.position = gun.transform.position;
         newBullet2.transform.position = gun.transform.position;
 
@@ -97,8 +97,8 @@ public class GameManager : MonoBehaviour
     {
         GameObject newBullet1 = Instantiate(rodPrefab);
         GameObject newBullet2 = Instantiate(rodPrefab);
-        newBullet1.GetComponent<BulletBehavior>().SetVariables(newBullet1);
-        newBullet2.GetComponent<BulletBehavior>().SetVariables(newBullet2);
+        newBullet1.GetComponent<BulletBehavior>().SetVariables(newBullet1, gun);
+        newBullet2.GetComponent<BulletBehavior>().SetVariables(newBullet2, gun);
         newBullet1.transform.position = gun.transform.position;
         newBullet2.transform.position = gun.transform.position;
 

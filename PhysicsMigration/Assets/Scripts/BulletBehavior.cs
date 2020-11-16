@@ -26,13 +26,15 @@ public class BulletBehavior : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public void SetVariables(GameObject projectile)
+    public void SetVariables(GameObject projectile, GameObject gun)
     {
         Particle2D info = projectile.GetComponent<Particle2D>();
-        info.speed = 800.0f;
-        info.Acceleration = new Vector3(100.0f, 10.0f, 0.0f);
-        info.Velocity = projectile.transform.forward * info.speed;
+        info.speed = 300.0f;
+        info.Acceleration = new Vector3(0.0f, -5.0f, 0.0f);
+        Vector3 dir = new Vector3((float)Mathf.Cos(gun.transform.rotation.z), (float)Mathf.Sin(gun.transform.rotation.z), 0.0f);
+        info.Velocity = dir * info.speed;
         info.Velocity.z = 0.0f;
+        Debug.Log(dir);
         info.DampingConstant = 0.99f;
     }
 }

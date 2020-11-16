@@ -71,7 +71,6 @@ public class ParticleManager : MonoBehaviour
             
       }
 
-      Debug.Log(listOfParticle2D.Count);
       foreach (GameObject particle in deadParticle2D)
          removeParticle2D(particle);
 
