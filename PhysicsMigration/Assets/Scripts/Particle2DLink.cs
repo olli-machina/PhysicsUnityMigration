@@ -39,7 +39,7 @@ public class Particle2DLink : MonoBehaviour
         //GameObject newForceGenerator = new GameObject("SpringForceGenerator"); //keep this?
         ParticleRod particleRod = obj1.AddComponent<ParticleRod>();
         particleRod.Constructor(obj1, obj2, maxLength);
-        particleRod.CreateContacts(mContacts);
+        //particleRod.CreateContacts(mContacts);
         return obj1.GetComponent<ParticleRod>();
     }
 }
