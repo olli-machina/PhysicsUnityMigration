@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\Particle2D.cs" />
     <Compile Include="Assets\Scripts\Particle2DContact.cs" />
     <Compile Include="Assets\Scripts\Particle2DLink.cs" />
+    <Compile Include="Assets\Scripts\ParticleManager.cs" />
     <Compile Include="Assets\Scripts\TargetBehavior.cs" />
     <Compile Include="Assets\Scripts\getheightandwidth.cs" />
     <Reference Include="UnityEngine">
