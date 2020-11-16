@@ -19,7 +19,7 @@ public class ParticleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+      updateall();
     }
 
    public void addParticle2D (Particle2D particle2DToAdd)
@@ -53,7 +53,13 @@ public class ParticleManager : MonoBehaviour
 
             else
             {
-               checkCollision(particle, particle2);
+               if(checkCollision(particle, particle2) == true)
+               {
+                  Destroy(particle);
+                  deadParticle2D.Add(particle);
+                  Destroy(particle2);
+                  deadParticle2D.Add(particle2);
+               }
             }
          }
             
