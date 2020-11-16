@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public ForceManager Fmanager;
     public ParticleManager Pmanager;
     public Particle2DLink mLink;
+   public Particle2DContact pContact;
     public bool isTarget = false, isAlive = true;
     GunBehaviors gunBehaviors;
     public Text scoreText;
@@ -106,7 +107,7 @@ public class GameManager : MonoBehaviour
         //newBullet2.GetComponent<BulletBehavior>().isParticleLink = true;
 
         Particle2DLink pLink = mLink.NewLink(newBullet1, newBullet2, 10.0f);
-
+        pContact.resolveContacts(mLink., Time.deltaTime);
         newBullet1.GetComponent<BulletBehavior>().particleLink = pLink;
     }
 }
