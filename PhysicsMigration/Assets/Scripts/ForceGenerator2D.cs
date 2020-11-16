@@ -100,7 +100,6 @@ public class SpringForceGenerator : ForceGenerator2D
 
         addForce(mObj1, diff);
         addForce(mObj2, opposite);
-        Debug.Log(opposite);
         //obj.GetComponent<Particle2D>().AccumulatedForces += force;
     }
 }
