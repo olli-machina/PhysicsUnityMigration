@@ -893,7 +893,10 @@ MonoBehaviour:
   Fmanager: {fileID: 390736736}
   Pmanager: {fileID: 546514350}
   mLink: {fileID: 0}
+  pContact: {fileID: 0}
   isTarget: 0
+  isAlive: 1
+  scoreText: {fileID: 1764471590}
 --- !u!4 &1604916584
 Transform:
   m_ObjectHideFlags: 0
