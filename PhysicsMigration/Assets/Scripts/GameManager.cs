@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject target, bulletPrefab, waterSprite, springPrefab, rodPrefab;
+    public GameObject target, bulletPrefab, waterSprite, springPrefab, rodPrefab, randomPrefab;
     private GameObject gun;
     public ForceManager Fmanager;
     public ParticleManager Pmanager;
@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     {
         CreateTarget(new Vector3(-82.0f, 25.0f, 0.0f)); //create target at start
         gun = GameObject.Find("Gun");
+        //CreateParticle(new Vector3(Random.Range(-110, 110), 25f, 0.0f));
+        //CreateParticle(new Vector3(Random.Range(-110, 110), 25f, 0.0f));
 
     }
 
@@ -48,6 +50,7 @@ public class GameManager : MonoBehaviour
                 mLink = tempParticleLink;
                 RodProjectile();
             }
+
         }
 
         if(!isTarget)
@@ -55,6 +58,11 @@ public class GameManager : MonoBehaviour
             CreateTarget(new Vector3(Random.Range(-110, 110), Random.Range(-60, 60), 0.0f));
             score++;
             scoreText.text = score.ToString();
+        }
+
+        if(Random.Range(0, 100) < 5)
+        {
+            CreateParticle(new Vector3(Random.Range(-110, 110), Random.Range(-60, 60), 0.0f));
         }
     }
 
@@ -69,6 +77,22 @@ public class GameManager : MonoBehaviour
         Fmanager.addForceGenerator(bouyancyForce);
         newTarget.GetComponent<TargetBehavior>().forceGen = bouyancyForce;
         isTarget = true;
+    }
+    
+    void CreateParticle(Vector3 pos)
+    {
+        GameObject newParticle = Instantiate(randomPrefab);
+        newParticle.transform.position = pos;
+        Debug.Log(Pmanager);
+        Pmanager.addParticle2D(newParticle);
+        newParticle.GetComponent<TargetBehavior>().SetVariables(newParticle);
+        ForceGenerator2D bouyancyForce = Fmanager.NewBouyancyForceGenerator(newParticle, -(waterSprite.transform.localScale.y) / 2, 20.0f, (waterSprite.transform.localScale.y) / 2, 5.0f);
+        Fmanager.addForceGenerator(bouyancyForce);
+        newParticle.GetComponent<TargetBehavior>().forceGen = bouyancyForce;
+        //newParticle.GetComponent<Renderer>().material.color = new Color(Random.Range(0, 255), Random.Range(0, 255), Random.Range(0, 255));
+        newParticle.GetComponent<Renderer>().material.color = new Color(Random.Range(0, 100)/100f, Random.Range(0, 100) / 100f, Random.Range(0, 100) / 100f);
+        Debug.Log(newParticle.GetComponent<Renderer>().material.color);
+        //isTarget = true;
     }
 
     void SpringProjectile()

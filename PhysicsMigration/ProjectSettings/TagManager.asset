@@ -7,6 +7,8 @@ TagManager:
   - Water
   - Target
   - Pistol
+  - Random
+  - Particle
   layers:
   - Default
   - TransparentFX
